@@ -1,0 +1,108 @@
+:root {
+    --color-background: #f5f1e8;
+    --color-text-dark: #2c2416;
+    --color-button-primary: #28a745;
+    --color-button-hover: #218838;
+    --color-text-light: white;
+}
+
+body {
+    background-color: var(--color-background);
+}
+
+.navbar {
+    background-color: var(--color-background) !important;
+}
+
+.navbar-brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--color-button-primary) !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1.5rem;
+}
+
+.hero-header {
+    background-color: var(--color-background);
+    padding: 80px 20px;
+    text-align: center;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.hero-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.2rem;
+    color: var(--color-text-dark);
+    margin-bottom: 50px;
+    font-weight: 400;
+}
+
+.search-button {
+    background-color: var(--color-button-primary);
+    color: var(--color-text-light);
+    padding: 15px 40px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.search-button:hover {
+    background-color: var(--color-button-hover);
+    color: var(--color-text-light);
+}
+
+.calculator-form-desktop {
+    max-width: 1000px;
+    width: 100%;
+}
+
+.modal-content {
+    background-color: var(--color-background);
+    border: none;
+}
+
+.modal-header {
+    border-bottom: 1px solid #ddd;
+    padding: 20px 30px;
+}
+
+.modal-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    font-size: 1.5rem;
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+}
+
