@@ -5,6 +5,20 @@ interface CalculatorFormData {
     email: string;
 }
 
+enum ValidationErrorCode {
+    REQUIRED_FIELD = 'REQUIRED_FIELD',
+    INVALID_NUMBER = 'INVALID_NUMBER',
+    INVALID_EMAIL = 'INVALID_EMAIL',
+    NEGATIVE_NUMBER = 'NEGATIVE_NUMBER',
+    ZERO_VALUE = 'ZERO_VALUE'
+}
+
+interface ValidationError {
+    code: ValidationErrorCode;
+    message: string;
+    field: string;
+}
+
 class Calculator {
     private resultsContainer: HTMLElement | null;
 
@@ -18,17 +32,146 @@ class Calculator {
         const desktopForm = document.getElementById('calculatorForm') as HTMLFormElement;
         if (desktopForm) {
             desktopForm.addEventListener('submit', (e: Event) => this.handleSubmit(e, desktopForm));
+            this.attachFieldValidators(desktopForm);
         }
 
         // Modal form
         const modalForm = document.getElementById('calculatorFormModal') as HTMLFormElement;
         if (modalForm) {
             modalForm.addEventListener('submit', (e: Event) => this.handleSubmit(e, modalForm));
+            this.attachFieldValidators(modalForm);
         }
+    }
+
+    private attachFieldValidators(form: HTMLFormElement): void {
+        const fields = form.querySelectorAll('input[required]');
+        fields.forEach(field => {
+            field.addEventListener('blur', () => this.validateField(field as HTMLInputElement, form));
+            field.addEventListener('input', () => this.clearFieldError(field as HTMLInputElement));
+        });
+    }
+
+    private validateField(field: HTMLInputElement, form: HTMLFormElement): ValidationError | null {
+        const fieldName = field.name;
+        const value = field.value.trim();
+        const isModal = form.id === 'calculatorFormModal';
+
+        // Clear previous error
+        this.clearFieldError(field);
+
+        // Check if field is empty
+        if (!value) {
+            const error: ValidationError = {
+                code: ValidationErrorCode.REQUIRED_FIELD,
+                message: 'This field is required',
+                field: fieldName
+            };
+            this.displayFieldError(field, error, isModal);
+            return error;
+        }
+
+        // Validate based on field type
+        if (field.type === 'email') {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+                const error: ValidationError = {
+                    code: ValidationErrorCode.INVALID_EMAIL,
+                    message: 'Please enter a valid email address',
+                    field: fieldName
+                };
+                this.displayFieldError(field, error, isModal);
+                return error;
+            }
+        } else if (field.type === 'number') {
+            const numValue = parseFloat(value);
+            
+            if (isNaN(numValue)) {
+                const error: ValidationError = {
+                    code: ValidationErrorCode.INVALID_NUMBER,
+                    message: 'Please enter a valid number',
+                    field: fieldName
+                };
+                this.displayFieldError(field, error, isModal);
+                return error;
+            }
+
+            if (numValue < 0) {
+                const error: ValidationError = {
+                    code: ValidationErrorCode.NEGATIVE_NUMBER,
+                    message: 'Please enter a positive number',
+                    field: fieldName
+                };
+                this.displayFieldError(field, error, isModal);
+                return error;
+            }
+
+            if (numValue === 0) {
+                const error: ValidationError = {
+                    code: ValidationErrorCode.ZERO_VALUE,
+                    message: 'Please enter a value greater than zero',
+                    field: fieldName
+                };
+                this.displayFieldError(field, error, isModal);
+                return error;
+            }
+        }
+
+        return null;
+    }
+
+    private displayFieldError(field: HTMLInputElement, error: ValidationError, isModal: boolean): void {
+        // Add error class to field
+        field.classList.add('is-invalid');
+
+        // Create or update error message element
+        let errorElement = field.parentElement?.querySelector('.invalid-feedback') as HTMLElement;
+        
+        if (!errorElement) {
+            errorElement = document.createElement('div');
+            errorElement.className = 'invalid-feedback';
+            field.parentElement?.appendChild(errorElement);
+        }
+
+        errorElement.textContent = error.message;
+        errorElement.setAttribute('data-error-code', error.code);
+    }
+
+    private clearFieldError(field: HTMLInputElement): void {
+        field.classList.remove('is-invalid');
+        const errorElement = field.parentElement?.querySelector('.invalid-feedback') as HTMLElement;
+        if (errorElement) {
+            errorElement.remove();
+        }
+    }
+
+    private validateForm(form: HTMLFormElement): ValidationError[] {
+        const errors: ValidationError[] = [];
+        const fields = form.querySelectorAll('input[required]') as NodeListOf<HTMLInputElement>;
+
+        fields.forEach(field => {
+            const error = this.validateField(field, form);
+            if (error) {
+                errors.push(error);
+            }
+        });
+
+        return errors;
     }
 
     private handleSubmit(event: Event, form: HTMLFormElement): void {
         event.preventDefault();
+
+        // Validate all fields
+        const errors = this.validateForm(form);
+        
+        if (errors.length > 0) {
+            // Focus on first error field
+            const firstErrorField = form.querySelector('.is-invalid') as HTMLInputElement;
+            if (firstErrorField) {
+                firstErrorField.focus();
+            }
+            return;
+        }
 
         const formDataObj = new FormData(form);
         const data: CalculatorFormData = {

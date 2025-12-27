@@ -1,4 +1,12 @@
 "use strict";
+var ValidationErrorCode;
+(function (ValidationErrorCode) {
+    ValidationErrorCode["REQUIRED_FIELD"] = "REQUIRED_FIELD";
+    ValidationErrorCode["INVALID_NUMBER"] = "INVALID_NUMBER";
+    ValidationErrorCode["INVALID_EMAIL"] = "INVALID_EMAIL";
+    ValidationErrorCode["NEGATIVE_NUMBER"] = "NEGATIVE_NUMBER";
+    ValidationErrorCode["ZERO_VALUE"] = "ZERO_VALUE";
+})(ValidationErrorCode || (ValidationErrorCode = {}));
 class Calculator {
     constructor() {
         this.resultsContainer = document.getElementById('resultsContainer');
@@ -9,15 +17,126 @@ class Calculator {
         const desktopForm = document.getElementById('calculatorForm');
         if (desktopForm) {
             desktopForm.addEventListener('submit', (e) => this.handleSubmit(e, desktopForm));
+            this.attachFieldValidators(desktopForm);
         }
         // Modal form
         const modalForm = document.getElementById('calculatorFormModal');
         if (modalForm) {
             modalForm.addEventListener('submit', (e) => this.handleSubmit(e, modalForm));
+            this.attachFieldValidators(modalForm);
         }
+    }
+    attachFieldValidators(form) {
+        const fields = form.querySelectorAll('input[required]');
+        fields.forEach(field => {
+            field.addEventListener('blur', () => this.validateField(field, form));
+            field.addEventListener('input', () => this.clearFieldError(field));
+        });
+    }
+    validateField(field, form) {
+        const fieldName = field.name;
+        const value = field.value.trim();
+        const isModal = form.id === 'calculatorFormModal';
+        // Clear previous error
+        this.clearFieldError(field);
+        // Check if field is empty
+        if (!value) {
+            const error = {
+                code: ValidationErrorCode.REQUIRED_FIELD,
+                message: 'This field is required',
+                field: fieldName
+            };
+            this.displayFieldError(field, error, isModal);
+            return error;
+        }
+        // Validate based on field type
+        if (field.type === 'email') {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+                const error = {
+                    code: ValidationErrorCode.INVALID_EMAIL,
+                    message: 'Please enter a valid email address',
+                    field: fieldName
+                };
+                this.displayFieldError(field, error, isModal);
+                return error;
+            }
+        }
+        else if (field.type === 'number') {
+            const numValue = parseFloat(value);
+            if (isNaN(numValue)) {
+                const error = {
+                    code: ValidationErrorCode.INVALID_NUMBER,
+                    message: 'Please enter a valid number',
+                    field: fieldName
+                };
+                this.displayFieldError(field, error, isModal);
+                return error;
+            }
+            if (numValue < 0) {
+                const error = {
+                    code: ValidationErrorCode.NEGATIVE_NUMBER,
+                    message: 'Please enter a positive number',
+                    field: fieldName
+                };
+                this.displayFieldError(field, error, isModal);
+                return error;
+            }
+            if (numValue === 0) {
+                const error = {
+                    code: ValidationErrorCode.ZERO_VALUE,
+                    message: 'Please enter a value greater than zero',
+                    field: fieldName
+                };
+                this.displayFieldError(field, error, isModal);
+                return error;
+            }
+        }
+        return null;
+    }
+    displayFieldError(field, error, isModal) {
+        // Add error class to field
+        field.classList.add('is-invalid');
+        // Create or update error message element
+        let errorElement = field.parentElement?.querySelector('.invalid-feedback');
+        if (!errorElement) {
+            errorElement = document.createElement('div');
+            errorElement.className = 'invalid-feedback';
+            field.parentElement?.appendChild(errorElement);
+        }
+        errorElement.textContent = error.message;
+        errorElement.setAttribute('data-error-code', error.code);
+    }
+    clearFieldError(field) {
+        field.classList.remove('is-invalid');
+        const errorElement = field.parentElement?.querySelector('.invalid-feedback');
+        if (errorElement) {
+            errorElement.remove();
+        }
+    }
+    validateForm(form) {
+        const errors = [];
+        const fields = form.querySelectorAll('input[required]');
+        fields.forEach(field => {
+            const error = this.validateField(field, form);
+            if (error) {
+                errors.push(error);
+            }
+        });
+        return errors;
     }
     handleSubmit(event, form) {
         event.preventDefault();
+        // Validate all fields
+        const errors = this.validateForm(form);
+        if (errors.length > 0) {
+            // Focus on first error field
+            const firstErrorField = form.querySelector('.is-invalid');
+            if (firstErrorField) {
+                firstErrorField.focus();
+            }
+            return;
+        }
         const formDataObj = new FormData(form);
         const data = {
             purchasePrice: parseFloat(formDataObj.get('purchasePrice')),
