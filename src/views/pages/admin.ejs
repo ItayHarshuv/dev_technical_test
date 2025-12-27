@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= typeof title !== 'undefined' ? title : 'Admin' %> - TypeScript Express App</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <style>
+        .table-container {
+            overflow-x: auto;
+        }
+        .table th {
+            background-color: #0d6efd;
+            color: white;
+            font-weight: 600;
+        }
+        .table td {
+            vertical-align: middle;
+        }
+        .text-success {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">EMERALD STAY</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/admin">Admin</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h2">Net Yield Return Simulations</h1>
+            <a href="/" class="btn btn-outline-primary">Back to Calculator</a>
+        </div>
+
+        <% if (typeof error !== 'undefined' && error) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+        <% } %>
+
+        <% if (typeof simulations !== 'undefined' && simulations.length > 0) { %>
+            <div class="table-container">
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Created At</th>
+                            <th scope="col">Prospect Email Address</th>
+                            <th scope="col">Property Purchase Price</th>
+                            <th scope="col">Monthly Rental Amount</th>
+                            <th scope="col">Annual Rental Fee</th>
+                            <th scope="col">Average Monthly Net Income (3 Years)</th>
+                            <th scope="col">Monthly Net Return (3 Years)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% simulations.forEach(function(sim) { %>
+                            <tr>
+                                <td><%= new Date(sim.createdAt).toLocaleString('en-US', { 
+                                    year: 'numeric', 
+                                    month: 'short', 
+                                    day: 'numeric', 
+                                    hour: '2-digit', 
+                                    minute: '2-digit' 
+                                }) %></td>
+                                <td><%= sim.prospectEmailAddress %></td>
+                                <td>$<%= sim.propertyPurchasePrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
+                                <td>$<%= sim.monthlyRentalAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
+                                <td>$<%= sim.annualRentalFee.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
+                                <td>$<%= sim.threeYearMonthlyAverageNetIncome.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
+                                <td><span class="text-success"><%= sim.monthlyNetReturnForThreeYears.toFixed(2) %>%</span></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        <% } else { %>
+            <div class="alert alert-info" role="alert">
+                No simulations found in the database.
+            </div>
+        <% } %>
+    </main>
+
+    <footer class="bg-light text-center py-3 mt-5">
+        <div class="container">
+            <p class="text-muted mb-0">&copy; 2024 TypeScript Express MongoDB Application</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
+
