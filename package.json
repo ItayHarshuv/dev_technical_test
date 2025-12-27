@@ -4,7 +4,9 @@
   "main": "dist/app.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
-    "build": "tsc",
+    "build": "tsc && tsc --project tsconfig.client.json",
+    "build:client": "tsc --project tsconfig.client.json",
+    "watch:client": "tsc --project tsconfig.client.json --watch",
     "start": "node dist/app.js"
   },
   "keywords": [],
