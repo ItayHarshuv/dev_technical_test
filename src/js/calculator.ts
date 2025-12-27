@@ -197,6 +197,30 @@ class Calculator {
         }
     }
 
+    private async saveSimulation(data: CalculatorFormData): Promise<void> {
+        try {
+            const response = await fetch('/api/simulations', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    propertyPurchasePrice: data.purchasePrice,
+                    monthlyRentalAmount: data.monthlyRent,
+                    annualRentalFee: data.annualFee,
+                    prospectEmailAddress: data.email
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Failed to save simulation:', errorData);
+            }
+        } catch (error) {
+            console.error('Error saving simulation:', error);
+        }
+    }
+
     private displayResults(data: CalculatorFormData): void {
         if (!this.resultsContainer) {
             return;
@@ -238,6 +262,9 @@ class Calculator {
 
         // Scroll to results
         this.resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Save simulation to MongoDB
+        this.saveSimulation(data);
     }
 }
 

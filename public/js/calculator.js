@@ -158,6 +158,29 @@ class Calculator {
             }
         }
     }
+    async saveSimulation(data) {
+        try {
+            const response = await fetch('/api/simulations', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    propertyPurchasePrice: data.purchasePrice,
+                    monthlyRentalAmount: data.monthlyRent,
+                    annualRentalFee: data.annualFee,
+                    prospectEmailAddress: data.email
+                })
+            });
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Failed to save simulation:', errorData);
+            }
+        }
+        catch (error) {
+            console.error('Error saving simulation:', error);
+        }
+    }
     displayResults(data) {
         if (!this.resultsContainer) {
             return;
@@ -196,6 +219,8 @@ class Calculator {
         `;
         // Scroll to results
         this.resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Save simulation to MongoDB
+        this.saveSimulation(data);
     }
 }
 // Initialize calculator when DOM is loaded
