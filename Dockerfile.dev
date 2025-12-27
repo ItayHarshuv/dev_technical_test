@@ -1,0 +1,20 @@
+# Development Dockerfile with file watching
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install all dependencies (including dev dependencies)
+RUN npm install
+
+# Copy tsconfig.json
+COPY tsconfig.json ./
+
+# Expose port
+EXPOSE 3000
+
+# Use ts-node-dev for hot reloading
+CMD ["npm", "run", "dev"]
+
