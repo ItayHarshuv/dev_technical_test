@@ -106,3 +106,22 @@ body {
     }
 }
 
+/* Admin page styles */
+.table-container {
+    overflow-x: auto;
+}
+
+.table th {
+    background-color: #0d6efd;
+    color: white;
+    font-weight: 600;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.text-success {
+    font-weight: 600;
+}
+
