@@ -1,0 +1,130 @@
+<header class="hero-header">
+    <h1 class="hero-title">NET YIELD RETURN CALCULATOR</h1>
+    <p class="hero-subtitle">Calculate your profits</p>
+    
+    <!-- Button: visible on mobile, hidden on desktop -->
+    <button class="search-button d-block d-lg-none" type="button" data-bs-toggle="modal" data-bs-target="#calculatorModal">
+        CALCULATE
+    </button>
+    
+    <!-- Form: hidden on mobile, visible on desktop - horizontal layout -->
+    <form class="d-none d-lg-flex flex-column bg-white rounded shadow-sm p-3 gap-3 mt-4 calculator-form-desktop" id="calculatorForm">
+        <div class="d-flex align-items-end gap-3">
+            <div class="flex-fill">
+                <label for="purchasePrice" class="form-label small fw-semibold mb-1">Purchase Price</label>
+                <input type="number" class="form-control" id="purchasePrice" name="purchasePrice" placeholder="Enter price" required>
+            </div>
+            <div class="flex-fill">
+                <label for="monthlyRent" class="form-label small fw-semibold mb-1">Monthly Rent</label>
+                <input type="number" class="form-control" id="monthlyRent" name="monthlyRent" placeholder="Enter amount" required>
+            </div>
+            <div class="flex-fill">
+                <label for="annualFee" class="form-label small fw-semibold mb-1">Annual Fee</label>
+                <input type="number" class="form-control" id="annualFee" name="annualFee" placeholder="Enter fee" required>
+            </div>
+            <div class="flex-fill">
+                <label for="email" class="form-label small fw-semibold mb-1">Email Address</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+            </div>
+            <div>
+                <button type="submit" class="search-button">CALCULATE</button>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mt-2">
+            <button type="button" class="btn btn-outline-secondary btn-sm" id="dataDrivenToggleDesktop">
+                Data Driven Analysis
+            </button>
+        </div>
+        <div id="dataDrivenFieldsDesktop" class="d-none d-flex align-items-end gap-3 mt-2">
+            <div class="flex-fill">
+                <label for="surfaceDesktop" class="form-label small fw-semibold mb-1">Surface (m²)</label>
+                <input type="number" class="form-control" id="surfaceDesktop" name="surface" placeholder="20-120" min="20" max="120" step="0.01">
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="flex-fill">
+                <label for="bedroomsDesktop" class="form-label small fw-semibold mb-1">Number of Bedrooms</label>
+                <select class="form-select" id="bedroomsDesktop" name="bedrooms">
+                    <option value="">Select bedrooms</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="flex-fill">
+                <label for="locationScoreDesktop" class="form-label small fw-semibold mb-1">Location Score</label>
+                <input type="number" class="form-control" id="locationScoreDesktop" name="locationScore" placeholder="5.0-10.0" min="5" max="10" step="0.1">
+                <div class="invalid-feedback"></div>
+            </div>
+        </div>
+    </form>
+</header>
+
+<!-- Modal: Full-screen modal for mobile view -->
+<div class="modal fade" id="calculatorModal" tabindex="-1" aria-labelledby="calculatorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="calculatorModalLabel">NET YIELD RETURN CALCULATOR</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="calculatorFormModal">
+                    <div class="mb-3">
+                        <label for="purchasePriceModal" class="form-label">Purchase Price of the Property</label>
+                        <input type="number" class="form-control" id="purchasePriceModal" name="purchasePrice" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="monthlyRentModal" class="form-label">Monthly Rent Amount</label>
+                        <input type="number" class="form-control" id="monthlyRentModal" name="monthlyRent" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="annualFeeModal" class="form-label">Annual Rental Fee</label>
+                        <input type="number" class="form-control" id="annualFeeModal" name="annualFee" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="emailModal" class="form-label">Prospect's Email Address</label>
+                        <input type="email" class="form-control" id="emailModal" name="email" required>
+                    </div>
+                    <div class="mb-3 d-flex justify-content-center">
+                        <button type="button" class="btn btn-outline-secondary" id="dataDrivenToggleModal">
+                            Data Driven Analysis
+                        </button>
+                    </div>
+                    <div id="dataDrivenFieldsModal" class="d-none">
+                        <div class="mb-3">
+                            <label for="surfaceModal" class="form-label">Surface (m²)</label>
+                            <input type="number" class="form-control" id="surfaceModal" name="surface" placeholder="20-120" min="20" max="120" step="0.01">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="bedroomsModal" class="form-label">Number of Bedrooms</label>
+                            <select class="form-select" id="bedroomsModal" name="bedrooms">
+                                <option value="">Select bedrooms</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="locationScoreModal" class="form-label">Location Score</label>
+                            <input type="number" class="form-control" id="locationScoreModal" name="locationScore" placeholder="5.0-10.0" min="5" max="10" step="0.1">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="search-button">CALCULATE</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main class="container my-5">
+    <div id="resultsContainer"></div>
+</main>
+
