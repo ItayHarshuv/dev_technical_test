@@ -4,6 +4,105 @@
     --color-button-primary: #28a745;
     --color-button-hover: #218838;
     --color-text-light: white;
+    --bg-primary: #28a745;
+    
+    /* Bootstrap 5 color overrides - replacing all blue defaults with green */
+    --bs-primary: #28a745;
+    --bs-primary-rgb: 40, 167, 69;
+    --bs-primary-bg-subtle: #d4edda;
+    --bs-primary-border-subtle: #c3e6cb;
+    --bs-primary-text-emphasis: #155724;
+    
+    /* Link colors - default to primary */
+    --bs-link-color: #28a745;
+    --bs-link-color-rgb: 40, 167, 69;
+    --bs-link-hover-color: #218838;
+    --bs-link-hover-color-rgb: 33, 136, 56;
+    
+    /* Active and focus states */
+    --bs-primary-active-border-color: #1e7e34;
+    --bs-primary-active-bg: #218838;
+    --bs-primary-active-color: #fff;
+    --bs-primary-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    
+    /* Focus ring */
+    --bs-primary-focus-ring-color: rgba(40, 167, 69, 0.5);
+    
+    /* Table primary variant */
+    --bs-table-bg: #28a745;
+    --bs-table-striped-bg: rgba(40, 167, 69, 0.05);
+    --bs-table-striped-color: #000;
+    --bs-table-active-bg: rgba(40, 167, 69, 0.1);
+    --bs-table-active-color: #000;
+    --bs-table-hover-bg: rgba(40, 167, 69, 0.075);
+    --bs-table-hover-color: #000;
+    
+    /* Alert primary variant */
+    --bs-alert-bg: #d4edda;
+    --bs-alert-border-color: #c3e6cb;
+    --bs-alert-color: #155724;
+    
+    /* Badge primary variant */
+    --bs-badge-color: #fff;
+    --bs-badge-bg: #28a745;
+    
+    /* Form controls focus state */
+    --bs-form-valid-color: #28a745;
+    --bs-form-valid-border-color: #28a745;
+    --bs-form-focus-color: rgba(40, 167, 69, 0.25);
+    --bs-form-focus-border-color: #28a745;
+    
+    /* Pagination */
+    --bs-pagination-active-bg: #28a745;
+    --bs-pagination-active-border-color: #28a745;
+    --bs-pagination-focus-color: #218838;
+    --bs-pagination-hover-color: #218838;
+    
+    /* Progress bar */
+    --bs-progress-bar-bg: #28a745;
+    
+    /* List group */
+    --bs-list-group-active-bg: #28a745;
+    --bs-list-group-active-border-color: #28a745;
+}
+
+/* Additional overrides for components that might use blue */
+.btn-primary {
+    --bs-btn-bg: #28a745;
+    --bs-btn-border-color: #28a745;
+    --bs-btn-hover-bg: #218838;
+    --bs-btn-hover-border-color: #1e7e34;
+    --bs-btn-active-bg: #1e7e34;
+    --bs-btn-active-border-color: #1c7430;
+    --bs-btn-disabled-bg: #28a745;
+    --bs-btn-disabled-border-color: #28a745;
+}
+
+.btn-outline-primary {
+    --bs-btn-color: #28a745;
+    --bs-btn-border-color: #28a745;
+    --bs-btn-hover-bg: #28a745;
+    --bs-btn-hover-border-color: #28a745;
+    --bs-btn-active-bg: #218838;
+    --bs-btn-active-border-color: #1e7e34;
+    --bs-btn-disabled-color: #28a745;
+    --bs-btn-disabled-border-color: #28a745;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25);
+}
+
+.form-check-input:checked {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.form-check-input:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25);
 }
 
 body {
@@ -16,7 +115,7 @@ body {
 
 .navbar-brand {
     font-family: 'Playfair Display', serif;
-    font-weight: 700;
+    font-weight: 400;
     color: var(--color-button-primary) !important;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -35,9 +134,9 @@ body {
 }
 
 .hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.5rem;
-    font-weight: 700;
+    font-family: Louize, Times, serif;
+    font-size: 72px;
+    font-weight: 400;
     color: var(--color-text-dark);
     margin-bottom: 20px;
     letter-spacing: 2px;
@@ -56,7 +155,7 @@ body {
     color: var(--color-text-light);
     padding: 15px 40px;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 1px;
     border: none;
@@ -88,7 +187,7 @@ body {
 
 .modal-title {
     font-family: 'Playfair Display', serif;
-    font-weight: 700;
+    font-weight: 400;
     color: var(--color-text-dark);
     font-size: 1.5rem;
 }
@@ -97,9 +196,15 @@ body {
     padding: 30px;
 }
 
+@media (min-width: 992px) {
+    .hero-title {
+        font-size: 96px;
+    }
+}
+
 @media (max-width: 768px) {
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 40px;
     }
     .hero-subtitle {
         font-size: 1rem;
@@ -112,9 +217,9 @@ body {
 }
 
 .table th {
-    background-color: #0d6efd;
+    background-color: var(--color-button-primary);
     color: white;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .table td {
@@ -122,6 +227,12 @@ body {
 }
 
 .text-success {
-    font-weight: 600;
+    font-weight: 400;
+}
+
+/* Override Bootstrap default bold headings */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-weight: 400;
 }
 
