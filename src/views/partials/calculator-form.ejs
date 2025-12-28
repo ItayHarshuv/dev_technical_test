@@ -1,0 +1,119 @@
+<% 
+    // Set defaults for context (desktop or modal)
+    // context is passed from the include statement
+    const formContext = (typeof context !== 'undefined' && context) ? context : 'desktop';
+    const isDesktop = formContext === 'desktop';
+    const isModal = formContext === 'modal';
+    
+    // Set IDs based on context
+    const formId = isDesktop ? 'calculatorForm' : 'calculatorFormModal';
+    const purchasePriceId = isDesktop ? 'purchasePrice' : 'purchasePriceModal';
+    const monthlyRentId = isDesktop ? 'monthlyRent' : 'monthlyRentModal';
+    const annualFeeId = isDesktop ? 'annualFee' : 'annualFeeModal';
+    const emailId = isDesktop ? 'email' : 'emailModal';
+    const dataDrivenToggleId = isDesktop ? 'dataDrivenToggleDesktop' : 'dataDrivenToggleModal';
+    const dataDrivenFieldsId = isDesktop ? 'dataDrivenFieldsDesktop' : 'dataDrivenFieldsModal';
+    const surfaceId = isDesktop ? 'surfaceDesktop' : 'surfaceModal';
+    const bedroomsId = isDesktop ? 'bedroomsDesktop' : 'bedroomsModal';
+    const locationScoreId = isDesktop ? 'locationScoreDesktop' : 'locationScoreModal';
+    
+    // Set classes based on context
+    const formClasses = isDesktop ? 'd-none d-lg-flex flex-column bg-white rounded shadow-sm p-3 gap-3 mt-4 calculator-form-desktop' : '';
+    const fieldWrapperClass = isDesktop ? 'flex-fill' : 'mb-3';
+    const labelClass = isDesktop ? 'form-label small fw-semibold mb-1' : 'form-label';
+    const fieldsContainerClass = isDesktop ? 'd-flex align-items-end gap-3' : '';
+    const dataDrivenFieldsClass = isDesktop ? 'd-none d-flex align-items-end gap-3 mt-2' : 'd-none';
+    const toggleButtonClass = isDesktop ? 'btn btn-outline-secondary btn-sm' : 'btn btn-outline-secondary';
+    const toggleWrapperClass = isDesktop ? 'd-flex justify-content-center mt-2' : 'mb-3 d-flex justify-content-center';
+    const submitWrapperClass = isDesktop ? '' : 'd-grid';
+    
+    // Set label text based on context
+    const purchasePriceLabel = isDesktop ? 'Purchase Price' : 'Purchase Price of the Property';
+    const monthlyRentLabel = isDesktop ? 'Monthly Rent' : 'Monthly Rent Amount';
+    const annualFeeLabel = isDesktop ? 'Annual Fee' : 'Annual Rental Fee';
+    const emailLabel = isDesktop ? 'Email Address' : 'Prospect\'s Email Address';
+%>
+
+<form class="<%= formClasses %>" id="<%= formId %>">
+    <% if (isDesktop) { %>
+        <div class="<%= fieldsContainerClass %>">
+    <% } %>
+    
+    <div class="<%= fieldWrapperClass %>">
+        <label for="<%= purchasePriceId %>" class="<%= labelClass %>"><%= purchasePriceLabel %></label>
+        <input type="number" class="form-control" id="<%= purchasePriceId %>" name="purchasePrice" placeholder="<%= isDesktop ? 'Enter price' : '' %>" required>
+    </div>
+    
+    <div class="<%= fieldWrapperClass %>">
+        <label for="<%= monthlyRentId %>" class="<%= labelClass %>"><%= monthlyRentLabel %></label>
+        <input type="number" class="form-control" id="<%= monthlyRentId %>" name="monthlyRent" placeholder="<%= isDesktop ? 'Enter amount' : '' %>" required>
+    </div>
+    
+    <div class="<%= fieldWrapperClass %>">
+        <label for="<%= annualFeeId %>" class="<%= labelClass %>"><%= annualFeeLabel %></label>
+        <input type="number" class="form-control" id="<%= annualFeeId %>" name="annualFee" placeholder="<%= isDesktop ? 'Enter fee' : '' %>" required>
+    </div>
+    
+    <div class="<%= fieldWrapperClass %>">
+        <label for="<%= emailId %>" class="<%= labelClass %>"><%= emailLabel %></label>
+        <input type="email" class="form-control" id="<%= emailId %>" name="email" placeholder="<%= isDesktop ? 'Enter email' : '' %>" required>
+    </div>
+    
+    <% if (isDesktop) { %>
+            <div>
+                <button type="submit" class="search-button">CALCULATE</button>
+            </div>
+        </div>
+    <% } %>
+    
+    <div class="<%= toggleWrapperClass %>">
+        <button type="button" class="<%= toggleButtonClass %>" id="<%= dataDrivenToggleId %>">
+            Data Driven Analysis
+        </button>
+    </div>
+    
+    <div id="<%= dataDrivenFieldsId %>" class="<%= dataDrivenFieldsClass %>">
+        <% if (isDesktop) { %>
+            <div class="flex-fill">
+        <% } else { %>
+            <div class="mb-3">
+        <% } %>
+            <label for="<%= surfaceId %>" class="<%= labelClass %>">Surface (m²)</label>
+            <input type="number" class="form-control" id="<%= surfaceId %>" name="surface" placeholder="20-120" min="20" max="120" step="0.01">
+            <div class="invalid-feedback"></div>
+        </div>
+        
+        <% if (isDesktop) { %>
+            <div class="flex-fill">
+        <% } else { %>
+            <div class="mb-3">
+        <% } %>
+            <label for="<%= bedroomsId %>" class="<%= labelClass %>">Number of Bedrooms</label>
+            <select class="form-select" id="<%= bedroomsId %>" name="bedrooms">
+                <option value="">Select bedrooms</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+            <div class="invalid-feedback"></div>
+        </div>
+        
+        <% if (isDesktop) { %>
+            <div class="flex-fill">
+        <% } else { %>
+            <div class="mb-3">
+        <% } %>
+            <label for="<%= locationScoreId %>" class="<%= labelClass %>">Location Score</label>
+            <input type="number" class="form-control" id="<%= locationScoreId %>" name="locationScore" placeholder="5.0-10.0" min="5" max="10" step="0.1">
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+    
+    <% if (isModal) { %>
+        <div class="<%= submitWrapperClass %>">
+            <button type="submit" class="search-button">CALCULATE</button>
+        </div>
+    <% } %>
+</form>
+
