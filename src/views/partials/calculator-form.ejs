@@ -18,10 +18,11 @@
     const locationScoreId = isDesktop ? 'locationScoreDesktop' : 'locationScoreModal';
     
     // Set classes based on context
-    const formClasses = isDesktop ? 'd-none d-lg-flex flex-column bg-white rounded shadow-sm p-3 gap-3 mt-4 calculator-form-desktop' : '';
-    const fieldWrapperClass = isDesktop ? 'flex-fill' : 'mb-3';
-    const labelClass = isDesktop ? 'form-label small mb-1' : 'form-label';
-    const fieldsContainerClass = isDesktop ? 'd-flex align-items-end gap-3' : '';
+    const formClasses = isDesktop ? 'd-none d-lg-flex flex-column align-items-center gap-0 mt-4 calculator-form-desktop' : '';
+    const fieldWrapperClass = isDesktop ? 'search-field-section' : 'mb-3';
+    const labelClass = isDesktop ? 'search-field-label' : 'form-label';
+    const inputClass = isDesktop ? 'search-field-input' : 'form-control';
+    const fieldsContainerClass = isDesktop ? 'search-box-container' : '';
     const dataDrivenFieldsClass = isDesktop ? 'd-none d-flex align-items-end gap-3 mt-2' : 'd-none';
     const toggleButtonClass = isDesktop ? 'btn btn-outline-secondary btn-sm' : 'btn btn-outline-secondary';
     const toggleWrapperClass = isDesktop ? 'd-flex justify-content-center mt-2' : 'mb-3 d-flex justify-content-center';
@@ -36,33 +37,56 @@
 
 <form class="<%= formClasses %>" id="<%= formId %>">
     <% if (isDesktop) { %>
-        <div class="<%= fieldsContainerClass %>">
-    <% } %>
-    
-    <div class="<%= fieldWrapperClass %>">
-        <label for="<%= purchasePriceId %>" class="<%= labelClass %>"><%= purchasePriceLabel %></label>
-        <input type="number" class="form-control" id="<%= purchasePriceId %>" name="purchasePrice" placeholder="<%= isDesktop ? 'Enter price' : '' %>" required>
-    </div>
-    
-    <div class="<%= fieldWrapperClass %>">
-        <label for="<%= monthlyRentId %>" class="<%= labelClass %>"><%= monthlyRentLabel %></label>
-        <input type="number" class="form-control" id="<%= monthlyRentId %>" name="monthlyRent" placeholder="<%= isDesktop ? 'Enter amount' : '' %>" required>
-    </div>
-    
-    <div class="<%= fieldWrapperClass %>">
-        <label for="<%= annualFeeId %>" class="<%= labelClass %>"><%= annualFeeLabel %></label>
-        <input type="number" class="form-control" id="<%= annualFeeId %>" name="annualFee" placeholder="<%= isDesktop ? 'Enter fee' : '' %>" required>
-    </div>
-    
-    <div class="<%= fieldWrapperClass %>">
-        <label for="<%= emailId %>" class="<%= labelClass %>"><%= emailLabel %></label>
-        <input type="email" class="form-control" id="<%= emailId %>" name="email" placeholder="<%= isDesktop ? 'Enter email' : '' %>" required>
-    </div>
-    
-    <% if (isDesktop) { %>
-            <div>
-                <button type="submit" class="search-button">CALCULATE</button>
+        <div class="search-form-row">
+            <div class="<%= fieldsContainerClass %>">
+                <div class="<%= fieldWrapperClass %>">
+                    <label for="<%= purchasePriceId %>" class="<%= labelClass %>"><%= purchasePriceLabel %></label>
+                    <input type="number" class="<%= inputClass %>" id="<%= purchasePriceId %>" name="purchasePrice" placeholder="Enter price" required>
+                </div>
+                
+                <div class="search-field-divider"></div>
+                
+                <div class="<%= fieldWrapperClass %>">
+                    <label for="<%= monthlyRentId %>" class="<%= labelClass %>"><%= monthlyRentLabel %></label>
+                    <input type="number" class="<%= inputClass %>" id="<%= monthlyRentId %>" name="monthlyRent" placeholder="Enter amount" required>
+                </div>
+                
+                <div class="search-field-divider"></div>
+                
+                <div class="<%= fieldWrapperClass %>">
+                    <label for="<%= annualFeeId %>" class="<%= labelClass %>"><%= annualFeeLabel %></label>
+                    <input type="number" class="<%= inputClass %>" id="<%= annualFeeId %>" name="annualFee" placeholder="Enter fee" required>
+                </div>
+                
+                <div class="search-field-divider"></div>
+                
+                <div class="<%= fieldWrapperClass %>">
+                    <label for="<%= emailId %>" class="<%= labelClass %>"><%= emailLabel %></label>
+                    <input type="email" class="<%= inputClass %>" id="<%= emailId %>" name="email" placeholder="Enter email" required>
+                </div>
             </div>
+            
+            <button type="submit" class="search-button-inline">CALCULATE</button>
+        </div>
+    <% } else { %>
+        <div class="<%= fieldWrapperClass %>">
+            <label for="<%= purchasePriceId %>" class="<%= labelClass %>"><%= purchasePriceLabel %></label>
+            <input type="number" class="form-control" id="<%= purchasePriceId %>" name="purchasePrice" placeholder="" required>
+        </div>
+        
+        <div class="<%= fieldWrapperClass %>">
+            <label for="<%= monthlyRentId %>" class="<%= labelClass %>"><%= monthlyRentLabel %></label>
+            <input type="number" class="form-control" id="<%= monthlyRentId %>" name="monthlyRent" placeholder="" required>
+        </div>
+        
+        <div class="<%= fieldWrapperClass %>">
+            <label for="<%= annualFeeId %>" class="<%= labelClass %>"><%= annualFeeLabel %></label>
+            <input type="number" class="form-control" id="<%= annualFeeId %>" name="annualFee" placeholder="" required>
+        </div>
+        
+        <div class="<%= fieldWrapperClass %>">
+            <label for="<%= emailId %>" class="<%= labelClass %>"><%= emailLabel %></label>
+            <input type="email" class="form-control" id="<%= emailId %>" name="email" placeholder="" required>
         </div>
     <% } %>
     
