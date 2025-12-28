@@ -205,7 +205,7 @@ body {
 }
 
 .table th {
-    background-color: var(--color-button-primary);
+    background-color: var(--bs-primary);
     color: white;
     font-weight: 400;
 }
