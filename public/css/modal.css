@@ -1,23 +1,8 @@
-/* Modal Component Styles */
-
 .modal-content {
     background-color: var(--color-background);
     border: none;
 }
 
-.modal-header {
-    border-bottom: 1px solid #ddd;
-    padding: 20px 30px;
-}
-
-.modal-title {
-    font-family: 'Playfair Display', serif;
-    font-weight: 400;
-    color: var(--color-text-dark);
-    font-size: 1.5rem;
-}
-
 .modal-body {
     padding: 30px;
 }
-
