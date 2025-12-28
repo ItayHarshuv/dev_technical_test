@@ -38,35 +38,68 @@
 <form class="<%= formClasses %>" id="<%= formId %>">
     <% if (isDesktop) { %>
         <div class="search-form-row">
-            <div class="<%= fieldsContainerClass %>">
-                <div class="<%= fieldWrapperClass %>">
-                    <label for="<%= purchasePriceId %>" class="<%= labelClass %>"><%= purchasePriceLabel %></label>
-                    <input type="number" class="<%= inputClass %>" id="<%= purchasePriceId %>" name="purchasePrice" placeholder="Enter price" required>
+            <div class="<%= fieldsContainerClass %>" id="<%= isDesktop ? 'searchBoxContainerDesktop' : '' %>">
+                <div class="search-form-top-row">
+                    <div class="<%= fieldWrapperClass %>">
+                        <label for="<%= purchasePriceId %>" class="<%= labelClass %>"><%= purchasePriceLabel %></label>
+                        <input type="number" class="<%= inputClass %>" id="<%= purchasePriceId %>" name="purchasePrice" placeholder="Enter price" required>
+                    </div>
+                    
+                    <div class="search-field-divider"></div>
+                    
+                    <div class="<%= fieldWrapperClass %>">
+                        <label for="<%= monthlyRentId %>" class="<%= labelClass %>"><%= monthlyRentLabel %></label>
+                        <input type="number" class="<%= inputClass %>" id="<%= monthlyRentId %>" name="monthlyRent" placeholder="Enter amount" required>
+                    </div>
+                    
+                    <div class="search-field-divider"></div>
+                    
+                    <div class="<%= fieldWrapperClass %>">
+                        <label for="<%= annualFeeId %>" class="<%= labelClass %>"><%= annualFeeLabel %></label>
+                        <input type="number" class="<%= inputClass %>" id="<%= annualFeeId %>" name="annualFee" placeholder="Enter fee" required>
+                    </div>
+                    
+                    <div class="search-field-divider"></div>
+                    
+                    <div class="<%= fieldWrapperClass %>">
+                        <label for="<%= emailId %>" class="<%= labelClass %>"><%= emailLabel %></label>
+                        <input type="email" class="<%= inputClass %>" id="<%= emailId %>" name="email" placeholder="Enter email" required>
+                    </div>
+                    
+                    <button type="submit" class="search-button-inline">CALCULATE</button>
                 </div>
                 
-                <div class="search-field-divider"></div>
-                
-                <div class="<%= fieldWrapperClass %>">
-                    <label for="<%= monthlyRentId %>" class="<%= labelClass %>"><%= monthlyRentLabel %></label>
-                    <input type="number" class="<%= inputClass %>" id="<%= monthlyRentId %>" name="monthlyRent" placeholder="Enter amount" required>
-                </div>
-                
-                <div class="search-field-divider"></div>
-                
-                <div class="<%= fieldWrapperClass %>">
-                    <label for="<%= annualFeeId %>" class="<%= labelClass %>"><%= annualFeeLabel %></label>
-                    <input type="number" class="<%= inputClass %>" id="<%= annualFeeId %>" name="annualFee" placeholder="Enter fee" required>
-                </div>
-                
-                <div class="search-field-divider"></div>
-                
-                <div class="<%= fieldWrapperClass %>">
-                    <label for="<%= emailId %>" class="<%= labelClass %>"><%= emailLabel %></label>
-                    <input type="email" class="<%= inputClass %>" id="<%= emailId %>" name="email" placeholder="Enter email" required>
+                <div id="<%= dataDrivenFieldsId %>" class="<%= isDesktop ? 'd-none data-driven-fields-container' : 'd-none' %>">
+                    <div class="data-driven-field">
+                        <label for="<%= surfaceId %>" class="<%= labelClass %>">Surface (m²)</label>
+                        <input type="number" class="form-control" id="<%= surfaceId %>" name="surface" placeholder="20-120" min="20" max="120" step="0.01">
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    
+                    <div class="data-driven-field">
+                        <label for="<%= bedroomsId %>" class="<%= labelClass %>">Number of Bedrooms</label>
+                        <select class="form-select" id="<%= bedroomsId %>" name="bedrooms">
+                            <option value="">Select bedrooms</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    
+                    <div class="data-driven-field">
+                        <label for="<%= locationScoreId %>" class="<%= labelClass %>">Location Score</label>
+                        <input type="number" class="form-control" id="<%= locationScoreId %>" name="locationScore" placeholder="5.0-10.0" min="5" max="10" step="0.1">
+                        <div class="invalid-feedback"></div>
+                    </div>
                 </div>
             </div>
-            
-            <button type="submit" class="search-button-inline">CALCULATE</button>
+        </div>
+        <div class="<%= toggleWrapperClass %>" id="<%= isDesktop ? 'toggleWrapperDesktop' : '' %>">
+            <button type="button" class="<%= toggleButtonClass %>" id="<%= dataDrivenToggleId %>">
+                Data Driven Analysis
+            </button>
         </div>
     <% } else { %>
         <div class="<%= fieldWrapperClass %>">
@@ -90,49 +123,39 @@
         </div>
     <% } %>
     
-    <div class="<%= toggleWrapperClass %>">
-        <button type="button" class="<%= toggleButtonClass %>" id="<%= dataDrivenToggleId %>">
-            Data Driven Analysis
-        </button>
-    </div>
-    
-    <div id="<%= dataDrivenFieldsId %>" class="<%= dataDrivenFieldsClass %>">
-        <% if (isDesktop) { %>
-            <div class="flex-fill">
-        <% } else { %>
-            <div class="mb-3">
-        <% } %>
-            <label for="<%= surfaceId %>" class="<%= labelClass %>">Surface (m²)</label>
-            <input type="number" class="form-control" id="<%= surfaceId %>" name="surface" placeholder="20-120" min="20" max="120" step="0.01">
-            <div class="invalid-feedback"></div>
+    <% if (!isDesktop) { %>
+        <div class="<%= toggleWrapperClass %>">
+            <button type="button" class="<%= toggleButtonClass %>" id="<%= dataDrivenToggleId %>">
+                Data Driven Analysis
+            </button>
         </div>
         
-        <% if (isDesktop) { %>
-            <div class="flex-fill">
-        <% } else { %>
+        <div id="<%= dataDrivenFieldsId %>" class="<%= dataDrivenFieldsClass %>">
             <div class="mb-3">
-        <% } %>
-            <label for="<%= bedroomsId %>" class="<%= labelClass %>">Number of Bedrooms</label>
-            <select class="form-select" id="<%= bedroomsId %>" name="bedrooms">
-                <option value="">Select bedrooms</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-            </select>
-            <div class="invalid-feedback"></div>
-        </div>
-        
-        <% if (isDesktop) { %>
-            <div class="flex-fill">
-        <% } else { %>
+                <label for="<%= surfaceId %>" class="<%= labelClass %>">Surface (m²)</label>
+                <input type="number" class="form-control" id="<%= surfaceId %>" name="surface" placeholder="20-120" min="20" max="120" step="0.01">
+                <div class="invalid-feedback"></div>
+            </div>
+            
             <div class="mb-3">
-        <% } %>
-            <label for="<%= locationScoreId %>" class="<%= labelClass %>">Location Score</label>
-            <input type="number" class="form-control" id="<%= locationScoreId %>" name="locationScore" placeholder="5.0-10.0" min="5" max="10" step="0.1">
-            <div class="invalid-feedback"></div>
+                <label for="<%= bedroomsId %>" class="<%= labelClass %>">Number of Bedrooms</label>
+                <select class="form-select" id="<%= bedroomsId %>" name="bedrooms">
+                    <option value="">Select bedrooms</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                <div class="invalid-feedback"></div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="<%= locationScoreId %>" class="<%= labelClass %>">Location Score</label>
+                <input type="number" class="form-control" id="<%= locationScoreId %>" name="locationScore" placeholder="5.0-10.0" min="5" max="10" step="0.1">
+                <div class="invalid-feedback"></div>
+            </div>
         </div>
-    </div>
+    <% } %>
     
     <% if (isModal) { %>
         <div class="<%= submitWrapperClass %>">

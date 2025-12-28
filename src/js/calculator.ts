@@ -53,8 +53,18 @@ class Calculator {
 
     private initializeDataDrivenToggle(): void {
         const toggleConfigs = [
-            { toggleId: 'dataDrivenToggleDesktop', fieldsId: 'dataDrivenFieldsDesktop', suffix: 'Desktop' },
-            { toggleId: 'dataDrivenToggleModal', fieldsId: 'dataDrivenFieldsModal', suffix: 'Modal' }
+            { 
+                toggleId: 'dataDrivenToggleDesktop', 
+                fieldsId: 'dataDrivenFieldsDesktop', 
+                suffix: 'Desktop',
+                containerId: 'searchBoxContainerDesktop'
+            },
+            { 
+                toggleId: 'dataDrivenToggleModal', 
+                fieldsId: 'dataDrivenFieldsModal', 
+                suffix: 'Modal',
+                containerId: null
+            }
         ];
 
         toggleConfigs.forEach(config => {
@@ -64,11 +74,35 @@ class Calculator {
                 toggle.addEventListener('click', () => {
                     const isVisible = !fields.classList.contains('d-none');
                     if (isVisible) {
+                        // Hide fields and collapse form
                         fields.classList.add('d-none');
                         this.clearDataDrivenFields(config.suffix);
+                        
+                        // Update button text
+                        toggle.textContent = 'Data Driven Analysis';
+                        
+                        // For desktop: remove expanded state
+                        if (config.suffix === 'Desktop' && config.containerId) {
+                            const container = document.getElementById(config.containerId);
+                            if (container) {
+                                container.classList.remove('expanded');
+                            }
+                        }
                     } else {
+                        // Show fields and expand form
                         fields.classList.remove('d-none');
                         this.setDataDrivenFieldsRequired(config.suffix, true);
+                        
+                        // Update button text
+                        toggle.textContent = 'Hide Data Driven Analysis';
+                        
+                        // For desktop: add expanded state
+                        if (config.suffix === 'Desktop' && config.containerId) {
+                            const container = document.getElementById(config.containerId);
+                            if (container) {
+                                container.classList.add('expanded');
+                            }
+                        }
                     }
                 });
             }
