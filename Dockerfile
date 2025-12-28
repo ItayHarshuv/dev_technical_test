@@ -14,6 +14,9 @@ COPY tsconfig.json ./
 COPY tsconfig.client.json ./
 COPY src ./src
 
+# Copy public directory (CSS files and structure for client-side JS output)
+COPY public ./public
+
 # Build TypeScript
 RUN npm run build
 
@@ -36,6 +39,9 @@ COPY --from=builder /app/dist ./dist
 
 # Copy views directory (EJS templates) from builder to dist/views for production
 COPY --from=builder /app/src/views ./dist/views
+
+# Copy public directory (CSS, JS, and other static assets)
+COPY --from=builder /app/public ./public
 
 # Verify files exist
 RUN ls -la dist/ && test -f dist/app.js || (echo "dist/app.js not found after copy" && exit 1)
