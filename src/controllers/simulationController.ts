@@ -12,7 +12,6 @@ export const createSimulation = async (req: Request, res: Response): Promise<voi
     try {
         const { propertyPurchasePrice, monthlyRentalAmount, annualRentalFee, prospectEmailAddress }: SimulationRequestBody = req.body;
 
-        // Validate required fields
         if (!propertyPurchasePrice || !monthlyRentalAmount || !annualRentalFee || !prospectEmailAddress) {
             res.status(400).json({ 
                 error: 'Missing required fields',
@@ -21,7 +20,6 @@ export const createSimulation = async (req: Request, res: Response): Promise<voi
             return;
         }
 
-        // Validate numeric values are positive
         if (propertyPurchasePrice <= 0 || monthlyRentalAmount <= 0 || annualRentalFee <= 0) {
             res.status(400).json({ 
                 error: 'Invalid input values',
@@ -30,7 +28,6 @@ export const createSimulation = async (req: Request, res: Response): Promise<voi
             return;
         }
 
-        // Validate email format
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(prospectEmailAddress)) {
             res.status(400).json({ 
@@ -40,7 +37,6 @@ export const createSimulation = async (req: Request, res: Response): Promise<voi
             return;
         }
 
-        // Create and save simulation
         const simulation = new NetYieldSimulation({
             propertyPurchasePrice,
             monthlyRentalAmount,
