@@ -127,6 +127,7 @@ body {
     color: var(--color-text-dark);
     margin-bottom: 20px;
     letter-spacing: 2px;
+    transition: font-size 0.5s ease-in-out;
 }
 
 .hero-subtitle {

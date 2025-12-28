@@ -4,19 +4,38 @@
             <img src="/brand/icon.png" alt="Logo" class="navbar-icon">
             EMERALD STAY
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" id="navbarToggleBtn" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link <%= typeof activePage !== 'undefined' && activePage === 'home' ? 'active' : '' %>" href="/">Calculator</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <%= typeof activePage !== 'undefined' && activePage === 'admin' ? 'active' : '' %>" href="/admin">Admin</a>
-                </li>
-            </ul>
+        <div class="navbar-nav" id="navbarNav">
+            <a class="nav-link <%= typeof activePage !== 'undefined' && activePage === 'home' ? 'active' : '' %>" href="/">Calculator</a>
+            <a class="nav-link <%= typeof activePage !== 'undefined' && activePage === 'admin' ? 'active' : '' %>" href="/admin">Admin</a>
         </div>
     </div>
 </nav>
+
+<!-- Full-screen overlay menu -->
+<div class="fullscreen-menu-overlay" id="fullscreenMenu">
+    <div class="fullscreen-menu-content">
+        <div class="fullscreen-menu-header">
+            <a class="fullscreen-menu-brand" href="/">
+                <img src="/brand/icon.png" alt="Logo" class="navbar-icon">
+                EMERALD STAY
+            </a>
+            <button class="fullscreen-menu-close" id="closeMenuBtn" aria-label="Close menu">
+                <span>&times;</span>
+            </button>
+        </div>
+        <ul class="fullscreen-menu-nav">
+            <li class="fullscreen-nav-item">
+                <a class="fullscreen-nav-link <%= typeof activePage !== 'undefined' && activePage === 'home' ? 'active' : '' %>" href="/">Calculator</a>
+            </li>
+            <li class="fullscreen-nav-item">
+                <a class="fullscreen-nav-link <%= typeof activePage !== 'undefined' && activePage === 'admin' ? 'active' : '' %>" href="/admin">Admin</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script src="/js/navbar.js"></script>
 
