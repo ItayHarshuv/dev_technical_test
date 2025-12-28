@@ -1,0 +1,69 @@
+.navbar {
+    background-color: var(--color-background) !important;
+}
+
+.navbar-container {
+    padding-left: 20px;
+    padding-right: 20px;
+    position: relative;
+}
+
+.navbar-brand {
+    font-family: Cinzel, serif;
+    font-weight: 400;
+    color: var(--color-button-primary) !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
+
+.navbar-toggler {
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+    border: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none !important;
+}
+
+.navbar-toggler-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.navbar-icon {
+    height: 30px;
+    width: 30px;
+}
+
+.nav-link {
+    font-family: Louize, Times, serif !important;
+}
+
+@media (min-width: 992px) {
+    .navbar-nav {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-icon {
+        height: 21px;
+        width: 21px;
+    }
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+}
+
