@@ -447,56 +447,40 @@ class Calculator {
             expectedMonthlyNetReturn = (expectedMonthlyNetIncome / data.purchasePrice) * 100;
         }
         
-        let expectedIncomeHtml = '';
-        if (expectedMonthlyNetIncome !== null) {
-            expectedIncomeHtml = `
-                    <hr>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <strong>Expected Monthly Net Income (calculating expected booking rate):</strong>
-                        </div>
-                        <div class="col-md-6">
-                            $${expectedMonthlyNetIncome.toFixed(2)}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <strong>Expected Monthly Net Return:</strong>
-                        </div>
-                        <div class="col-md-6">
-                            <span class="h5 text-success">${expectedMonthlyNetReturn!.toFixed(2)}%</span>
-                        </div>
-                    </div>
-            `;
+        // Populate the existing elements in the partial
+        const averageMonthlyNetIncomeEl = document.getElementById('averageMonthlyNetIncome');
+        const monthlyNetReturnEl = document.getElementById('monthlyNetReturn');
+        const expectedIncomeSectionEl = document.getElementById('expectedIncomeSection');
+        const expectedMonthlyNetIncomeEl = document.getElementById('expectedMonthlyNetIncome');
+        const expectedMonthlyNetReturnEl = document.getElementById('expectedMonthlyNetReturn');
+        
+        if (averageMonthlyNetIncomeEl) {
+            averageMonthlyNetIncomeEl.textContent = `$${threeYearMonthlyAverageNetIncome.toFixed(2)}`;
         }
         
-        this.resultsContainer.innerHTML = `
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Calculation Results</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <strong>Average Monthly Net Income Over 3 Years:</strong>
-                        </div>
-                        <div class="col-md-6">
-                            $${threeYearMonthlyAverageNetIncome.toFixed(2)}
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <strong>Monthly Net Return Over 3 Years:</strong>
-                        </div>
-                        <div class="col-md-6">
-                            <span class="h5 text-success">${monthlyNetReturnForThreeYears.toFixed(2)}%</span>
-                        </div>
-                    </div>
-                    ${expectedIncomeHtml}
-                </div>
-            </div>
-        `;
+        if (monthlyNetReturnEl) {
+            monthlyNetReturnEl.textContent = `${monthlyNetReturnForThreeYears.toFixed(2)}%`;
+        }
+        
+        // Show/hide expected income section based on whether data-driven fields are present
+        if (expectedIncomeSectionEl) {
+            if (expectedMonthlyNetIncome !== null && expectedMonthlyNetReturn !== null) {
+                expectedIncomeSectionEl.classList.remove('d-none');
+                
+                if (expectedMonthlyNetIncomeEl) {
+                    expectedMonthlyNetIncomeEl.textContent = `$${expectedMonthlyNetIncome.toFixed(2)}`;
+                }
+                
+                if (expectedMonthlyNetReturnEl) {
+                    expectedMonthlyNetReturnEl.textContent = `${expectedMonthlyNetReturn.toFixed(2)}%`;
+                }
+            } else {
+                expectedIncomeSectionEl.classList.add('d-none');
+            }
+        }
+        
+        // Show the results container
+        this.resultsContainer.classList.remove('d-none');
 
         // Scroll to results
         this.resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
