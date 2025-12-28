@@ -1,0 +1,112 @@
+/* Calculator Form Component Styles */
+
+.calculator-form-desktop {
+    max-width: 1000px;
+    width: 100%;
+    align-items: center;
+}
+
+.search-form-row {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    gap: 0;
+}
+
+.search-box-container {
+    background-color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: stretch;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    max-width: 900px;
+}
+
+.search-field-section {
+    flex: 1;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.search-field-divider {
+    width: 1px;
+    background-color: #e0e0e0;
+    margin: 12px 0;
+}
+
+.search-field-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    color: var(--color-text-dark);
+    margin-bottom: 8px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.search-field-input {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: var(--color-text-dark);
+    border: none;
+    background: transparent;
+    padding: 0;
+    outline: none;
+    width: 100%;
+    font-weight: 400;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+}
+
+.search-field-input::-webkit-outer-spin-button,
+.search-field-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.search-field-input::placeholder {
+    color: #999;
+    font-weight: 400;
+}
+
+.search-field-input:focus {
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+.search-field-input:focus-visible {
+    outline: none;
+}
+
+.search-button-inline {
+    background-color: var(--color-button-primary);
+    color: var(--color-text-light);
+    padding: 20px 40px;
+    font-size: 1rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+    margin-left: 12px;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+}
+
+.search-button-inline:hover {
+    background-color: var(--color-button-hover);
+    color: var(--color-text-light);
+}
+

@@ -1,0 +1,20 @@
+/* Admin Page Styles */
+
+.table-container {
+    overflow-x: auto;
+}
+
+.table th {
+    background-color: var(--bs-primary);
+    color: white;
+    font-weight: 400;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.text-success {
+    font-weight: 400;
+}
+
