@@ -36,124 +36,101 @@ class Calculator {
     }
 
     private initializeForms(): void {
-        // Desktop form
-        const desktopForm = document.getElementById('calculatorForm') as HTMLFormElement;
-        if (desktopForm) {
-            desktopForm.addEventListener('submit', (e: Event) => this.handleSubmit(e, desktopForm));
-            this.attachFieldValidators(desktopForm);
-            this.attachDataDrivenValidators('Desktop', desktopForm);
-        }
+        const formConfigs = [
+            { id: 'calculatorForm', suffix: 'Desktop' },
+            { id: 'calculatorFormModal', suffix: 'Modal' }
+        ];
 
-        // Modal form
-        const modalForm = document.getElementById('calculatorFormModal') as HTMLFormElement;
-        if (modalForm) {
-            modalForm.addEventListener('submit', (e: Event) => this.handleSubmit(e, modalForm));
-            this.attachFieldValidators(modalForm);
-            this.attachDataDrivenValidators('Modal', modalForm);
-        }
+        formConfigs.forEach(config => {
+            const form = document.getElementById(config.id) as HTMLFormElement;
+            if (form) {
+                form.addEventListener('submit', (e: Event) => this.handleSubmit(e, form));
+                this.attachFieldValidators(form);
+                this.attachDataDrivenValidators(config.suffix, form);
+            }
+        });
     }
 
     private initializeDataDrivenToggle(): void {
-        // Desktop toggle
-        const desktopToggle = document.getElementById('dataDrivenToggleDesktop');
-        const desktopFields = document.getElementById('dataDrivenFieldsDesktop');
-        if (desktopToggle && desktopFields) {
-            desktopToggle.addEventListener('click', () => {
-                const isVisible = !desktopFields.classList.contains('d-none');
-                if (isVisible) {
-                    desktopFields.classList.add('d-none');
-                    this.clearDataDrivenFields('Desktop');
-                } else {
-                    desktopFields.classList.remove('d-none');
-                    this.setDataDrivenFieldsRequired('Desktop', true);
-                }
-            });
-        }
+        const toggleConfigs = [
+            { toggleId: 'dataDrivenToggleDesktop', fieldsId: 'dataDrivenFieldsDesktop', suffix: 'Desktop' },
+            { toggleId: 'dataDrivenToggleModal', fieldsId: 'dataDrivenFieldsModal', suffix: 'Modal' }
+        ];
 
-        // Modal toggle
-        const modalToggle = document.getElementById('dataDrivenToggleModal');
-        const modalFields = document.getElementById('dataDrivenFieldsModal');
-        if (modalToggle && modalFields) {
-            modalToggle.addEventListener('click', () => {
-                const isVisible = !modalFields.classList.contains('d-none');
-                if (isVisible) {
-                    modalFields.classList.add('d-none');
-                    this.clearDataDrivenFields('Modal');
-                } else {
-                    modalFields.classList.remove('d-none');
-                    this.setDataDrivenFieldsRequired('Modal', true);
-                }
-            });
-        }
+        toggleConfigs.forEach(config => {
+            const toggle = document.getElementById(config.toggleId);
+            const fields = document.getElementById(config.fieldsId);
+            if (toggle && fields) {
+                toggle.addEventListener('click', () => {
+                    const isVisible = !fields.classList.contains('d-none');
+                    if (isVisible) {
+                        fields.classList.add('d-none');
+                        this.clearDataDrivenFields(config.suffix);
+                    } else {
+                        fields.classList.remove('d-none');
+                        this.setDataDrivenFieldsRequired(config.suffix, true);
+                    }
+                });
+            }
+        });
+    }
+
+    private getDataDrivenFields(suffix: string): {
+        surface: HTMLInputElement | null;
+        bedrooms: HTMLSelectElement | null;
+        locationScore: HTMLInputElement | null;
+    } {
+        return {
+            surface: document.getElementById(`surface${suffix}`) as HTMLInputElement,
+            bedrooms: document.getElementById(`bedrooms${suffix}`) as HTMLSelectElement,
+            locationScore: document.getElementById(`locationScore${suffix}`) as HTMLInputElement
+        };
     }
 
     private attachDataDrivenValidators(suffix: string, form: HTMLFormElement): void {
-        const surfaceField = document.getElementById(`surface${suffix}`) as HTMLInputElement;
-        const bedroomsField = document.getElementById(`bedrooms${suffix}`) as HTMLSelectElement;
-        const locationScoreField = document.getElementById(`locationScore${suffix}`) as HTMLInputElement;
+        const fields = this.getDataDrivenFields(suffix);
 
-        if (surfaceField) {
-            surfaceField.addEventListener('blur', () => this.validateField(surfaceField, form));
-            surfaceField.addEventListener('input', () => this.clearFieldError(surfaceField));
-        }
-        if (bedroomsField) {
-            bedroomsField.addEventListener('change', () => this.validateField(bedroomsField, form));
-            bedroomsField.addEventListener('change', () => this.clearFieldError(bedroomsField));
-        }
-        if (locationScoreField) {
-            locationScoreField.addEventListener('blur', () => this.validateField(locationScoreField, form));
-            locationScoreField.addEventListener('input', () => this.clearFieldError(locationScoreField));
+        // Surface and locationScore are input fields - use blur/input
+        [fields.surface, fields.locationScore].forEach(field => {
+            if (field) {
+                field.addEventListener('blur', () => this.validateField(field!, form));
+                field.addEventListener('input', () => this.clearFieldError(field!));
+            }
+        });
+
+        // Bedrooms is a select field - use change
+        if (fields.bedrooms) {
+            fields.bedrooms.addEventListener('change', () => {
+                this.validateField(fields.bedrooms!, form);
+                this.clearFieldError(fields.bedrooms!);
+            });
         }
     }
 
     private clearDataDrivenFields(suffix: string): void {
-        const surfaceField = document.getElementById(`surface${suffix}`) as HTMLInputElement;
-        const bedroomsField = document.getElementById(`bedrooms${suffix}`) as HTMLSelectElement;
-        const locationScoreField = document.getElementById(`locationScore${suffix}`) as HTMLInputElement;
-
-        if (surfaceField) {
-            surfaceField.value = '';
-            this.clearFieldError(surfaceField);
-            surfaceField.removeAttribute('required');
-        }
-        if (bedroomsField) {
-            bedroomsField.value = '';
-            this.clearFieldError(bedroomsField);
-            bedroomsField.removeAttribute('required');
-        }
-        if (locationScoreField) {
-            locationScoreField.value = '';
-            this.clearFieldError(locationScoreField);
-            locationScoreField.removeAttribute('required');
-        }
+        const fields = this.getDataDrivenFields(suffix);
+        
+        Object.values(fields).forEach(field => {
+            if (field) {
+                field.value = '';
+                this.clearFieldError(field);
+                field.removeAttribute('required');
+            }
+        });
     }
 
     private setDataDrivenFieldsRequired(suffix: string, required: boolean): void {
-        const surfaceField = document.getElementById(`surface${suffix}`) as HTMLInputElement;
-        const bedroomsField = document.getElementById(`bedrooms${suffix}`) as HTMLSelectElement;
-        const locationScoreField = document.getElementById(`locationScore${suffix}`) as HTMLInputElement;
-
-        if (surfaceField) {
-            if (required) {
-                surfaceField.setAttribute('required', 'required');
-            } else {
-                surfaceField.removeAttribute('required');
+        const fields = this.getDataDrivenFields(suffix);
+        
+        Object.values(fields).forEach(field => {
+            if (field) {
+                if (required) {
+                    field.setAttribute('required', 'required');
+                } else {
+                    field.removeAttribute('required');
+                }
             }
-        }
-        if (bedroomsField) {
-            if (required) {
-                bedroomsField.setAttribute('required', 'required');
-            } else {
-                bedroomsField.removeAttribute('required');
-            }
-        }
-        if (locationScoreField) {
-            if (required) {
-                locationScoreField.setAttribute('required', 'required');
-            } else {
-                locationScoreField.removeAttribute('required');
-            }
-        }
+        });
     }
 
     private attachFieldValidators(form: HTMLFormElement): void {
@@ -180,13 +157,13 @@ class Calculator {
 
         // Check if field is empty and required
         if (isRequired && !value) {
-            const error: ValidationError = {
-                code: ValidationErrorCode.REQUIRED_FIELD,
-                message: 'This field is required',
-                field: fieldName
-            };
-            this.displayFieldError(field, error, isModal);
-            return error;
+            return this.createAndDisplayError(
+                field,
+                ValidationErrorCode.REQUIRED_FIELD,
+                'This field is required',
+                fieldName,
+                isModal
+            );
         }
 
         // Skip validation if field is empty and not required
@@ -200,13 +177,13 @@ class Calculator {
             if (fieldName === 'bedrooms') {
                 const bedroomsValue = parseInt(value);
                 if (isNaN(bedroomsValue) || bedroomsValue < 1 || bedroomsValue > 4) {
-                    const error: ValidationError = {
-                        code: ValidationErrorCode.BEDROOMS_OUT_OF_RANGE,
-                        message: 'Please select a number of bedrooms between 1 and 4',
-                        field: fieldName
-                    };
-                    this.displayFieldError(field, error, isModal);
-                    return error;
+                    return this.createAndDisplayError(
+                        field,
+                        ValidationErrorCode.BEDROOMS_OUT_OF_RANGE,
+                        'Please select a number of bedrooms between 1 and 4',
+                        fieldName,
+                        isModal
+                    );
                 }
             }
         } else if (field.tagName === 'INPUT') {
@@ -215,77 +192,89 @@ class Calculator {
             if (inputField.type === 'email') {
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(value)) {
-                    const error: ValidationError = {
-                        code: ValidationErrorCode.INVALID_EMAIL,
-                        message: 'Please enter a valid email address',
-                        field: fieldName
-                    };
-                    this.displayFieldError(inputField, error, isModal);
-                    return error;
+                    return this.createAndDisplayError(
+                        inputField,
+                        ValidationErrorCode.INVALID_EMAIL,
+                        'Please enter a valid email address',
+                        fieldName,
+                        isModal
+                    );
                 }
             } else if (inputField.type === 'number') {
                 const numValue = parseFloat(value);
                 
                 if (isNaN(numValue)) {
-                    const error: ValidationError = {
-                        code: ValidationErrorCode.INVALID_NUMBER,
-                        message: 'Please enter a valid number',
-                        field: fieldName
-                    };
-                    this.displayFieldError(inputField, error, isModal);
-                    return error;
+                    return this.createAndDisplayError(
+                        inputField,
+                        ValidationErrorCode.INVALID_NUMBER,
+                        'Please enter a valid number',
+                        fieldName,
+                        isModal
+                    );
                 }
 
                 // Validate surface (20-120)
                 if (fieldName === 'surface') {
                     if (numValue < 20 || numValue > 120) {
-                        const error: ValidationError = {
-                            code: ValidationErrorCode.SURFACE_OUT_OF_RANGE,
-                            message: 'Surface must be between 20 and 120 m²',
-                            field: fieldName
-                        };
-                        this.displayFieldError(inputField, error, isModal);
-                        return error;
+                        return this.createAndDisplayError(
+                            inputField,
+                            ValidationErrorCode.SURFACE_OUT_OF_RANGE,
+                            'Surface must be between 20 and 120 m²',
+                            fieldName,
+                            isModal
+                        );
                     }
                 }
                 // Validate location score (5-10)
                 else if (fieldName === 'locationScore') {
                     if (numValue < 5 || numValue > 10) {
-                        const error: ValidationError = {
-                            code: ValidationErrorCode.LOCATION_SCORE_OUT_OF_RANGE,
-                            message: 'Location score must be between 5.0 and 10.0',
-                            field: fieldName
-                        };
-                        this.displayFieldError(inputField, error, isModal);
-                        return error;
+                        return this.createAndDisplayError(
+                            inputField,
+                            ValidationErrorCode.LOCATION_SCORE_OUT_OF_RANGE,
+                            'Location score must be between 5.0 and 10.0',
+                            fieldName,
+                            isModal
+                        );
                     }
                 }
                 // Validate other number fields
                 else {
                     if (numValue < 0) {
-                        const error: ValidationError = {
-                            code: ValidationErrorCode.NEGATIVE_NUMBER,
-                            message: 'Please enter a positive number',
-                            field: fieldName
-                        };
-                        this.displayFieldError(inputField, error, isModal);
-                        return error;
+                        return this.createAndDisplayError(
+                            inputField,
+                            ValidationErrorCode.NEGATIVE_NUMBER,
+                            'Please enter a positive number',
+                            fieldName,
+                            isModal
+                        );
                     }
 
                     if (numValue === 0) {
-                        const error: ValidationError = {
-                            code: ValidationErrorCode.ZERO_VALUE,
-                            message: 'Please enter a value greater than zero',
-                            field: fieldName
-                        };
-                        this.displayFieldError(inputField, error, isModal);
-                        return error;
+                        return this.createAndDisplayError(
+                            inputField,
+                            ValidationErrorCode.ZERO_VALUE,
+                            'Please enter a value greater than zero',
+                            fieldName,
+                            isModal
+                        );
                     }
                 }
             }
         }
 
         return null;
+    }
+
+    private createAndDisplayError(
+        field: HTMLInputElement | HTMLSelectElement,
+        code: ValidationErrorCode,
+        message: string,
+        fieldName: string,
+        isModal: boolean
+    ): ValidationError {
+        const error: ValidationError = { code, message, field: fieldName };
+        this.displayFieldError(field, error, isModal);
+        return error;
     }
 
     private displayFieldError(field: HTMLInputElement | HTMLSelectElement, error: ValidationError, isModal: boolean): void {
