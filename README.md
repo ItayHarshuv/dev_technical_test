@@ -13,21 +13,25 @@ Currently having the following functionality:
 The calculation is performed in the following manner:
 
 Agency commissions:
+
 - First year: 30%
 - Second year: 25%
 - Third+ year: 20%
 
 The formula for calculating the monthly net income:
+
 ```
 Monthly Net Income = (Three Year Rent - Three Year Fee - Three Year Commission) / 36
 ```
 
 The formula for calculating the monthly net return:
+
 ```
 Monthly Net Return = (Monthly Net Income / Purchase Price) × 100
 ```
 
 The formula for data-driven calculation is:
+
 ```
 - Annual Paid Price = e^3.608 × surface_m²^0.285 × bedrooms^-0.043 × location_score^0.851 × (monthlyRent/30)^0.735
 - Expected Monthly Net Return = (Expected Monthly Net Income / Purchase Price) × 100

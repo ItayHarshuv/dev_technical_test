@@ -13,19 +13,19 @@ var ValidationErrorCode;
 })(ValidationErrorCode || (ValidationErrorCode = {}));
 class Calculator {
     constructor() {
-        this.resultsContainer = document.getElementById('resultsContainer');
+        this.resultsContainer = document.getElementById("resultsContainer");
         this.initializeForms();
         this.initializeDataDrivenToggle();
     }
     initializeForms() {
         const formConfigs = [
-            { id: 'calculatorForm', suffix: 'Desktop' },
-            { id: 'calculatorFormModal', suffix: 'Modal' }
+            { id: "calculatorForm", suffix: "Desktop" },
+            { id: "calculatorFormModal", suffix: "Modal" },
         ];
-        formConfigs.forEach(config => {
+        formConfigs.forEach((config) => {
             const form = document.getElementById(config.id);
             if (form) {
-                form.addEventListener('submit', (e) => this.handleSubmit(e, form));
+                form.addEventListener("submit", (e) => this.handleSubmit(e, form));
                 this.attachFieldValidators(form);
                 this.attachDataDrivenValidators(config.suffix, form);
             }
@@ -34,49 +34,49 @@ class Calculator {
     initializeDataDrivenToggle() {
         const toggleConfigs = [
             {
-                toggleId: 'dataDrivenToggleDesktop',
-                fieldsId: 'dataDrivenFieldsDesktop',
-                suffix: 'Desktop',
-                containerId: 'searchBoxContainerDesktop'
+                toggleId: "dataDrivenToggleDesktop",
+                fieldsId: "dataDrivenFieldsDesktop",
+                suffix: "Desktop",
+                containerId: "searchBoxContainerDesktop",
             },
             {
-                toggleId: 'dataDrivenToggleModal',
-                fieldsId: 'dataDrivenFieldsModal',
-                suffix: 'Modal',
-                containerId: null
-            }
+                toggleId: "dataDrivenToggleModal",
+                fieldsId: "dataDrivenFieldsModal",
+                suffix: "Modal",
+                containerId: null,
+            },
         ];
-        toggleConfigs.forEach(config => {
+        toggleConfigs.forEach((config) => {
             const toggle = document.getElementById(config.toggleId);
             const fields = document.getElementById(config.fieldsId);
             if (toggle && fields) {
-                toggle.addEventListener('click', () => {
-                    const isVisible = !fields.classList.contains('d-none');
+                toggle.addEventListener("click", () => {
+                    const isVisible = !fields.classList.contains("d-none");
                     if (isVisible) {
                         // Hide fields and collapse form
-                        fields.classList.add('d-none');
+                        fields.classList.add("d-none");
                         this.clearDataDrivenFields(config.suffix);
                         // Update button text
-                        toggle.textContent = 'Data Driven Analysis';
+                        toggle.textContent = "Data Driven Analysis";
                         // For desktop: remove expanded state
-                        if (config.suffix === 'Desktop' && config.containerId) {
+                        if (config.suffix === "Desktop" && config.containerId) {
                             const container = document.getElementById(config.containerId);
                             if (container) {
-                                container.classList.remove('expanded');
+                                container.classList.remove("expanded");
                             }
                         }
                     }
                     else {
                         // Show fields and expand form
-                        fields.classList.remove('d-none');
+                        fields.classList.remove("d-none");
                         this.setDataDrivenFieldsRequired(config.suffix, true);
                         // Update button text
-                        toggle.textContent = 'Hide Data Driven Analysis';
+                        toggle.textContent = "Hide Data Driven Analysis";
                         // For desktop: add expanded state
-                        if (config.suffix === 'Desktop' && config.containerId) {
+                        if (config.suffix === "Desktop" && config.containerId) {
                             const container = document.getElementById(config.containerId);
                             if (container) {
-                                container.classList.add('expanded');
+                                container.classList.add("expanded");
                             }
                         }
                     }
@@ -88,21 +88,21 @@ class Calculator {
         return {
             surface: document.getElementById(`surface${suffix}`),
             bedrooms: document.getElementById(`bedrooms${suffix}`),
-            locationScore: document.getElementById(`locationScore${suffix}`)
+            locationScore: document.getElementById(`locationScore${suffix}`),
         };
     }
     attachDataDrivenValidators(suffix, form) {
         const fields = this.getDataDrivenFields(suffix);
         // Surface and locationScore are input fields - use blur/input
-        [fields.surface, fields.locationScore].forEach(field => {
+        [fields.surface, fields.locationScore].forEach((field) => {
             if (field) {
-                field.addEventListener('blur', () => this.validateField(field, form));
-                field.addEventListener('input', () => this.clearFieldError(field));
+                field.addEventListener("blur", () => this.validateField(field, form));
+                field.addEventListener("input", () => this.clearFieldError(field));
             }
         });
         // Bedrooms is a select field - use change
         if (fields.bedrooms) {
-            fields.bedrooms.addEventListener('change', () => {
+            fields.bedrooms.addEventListener("change", () => {
                 this.validateField(fields.bedrooms, form);
                 this.clearFieldError(fields.bedrooms);
             });
@@ -110,97 +110,97 @@ class Calculator {
     }
     clearDataDrivenFields(suffix) {
         const fields = this.getDataDrivenFields(suffix);
-        Object.values(fields).forEach(field => {
+        Object.values(fields).forEach((field) => {
             if (field) {
-                field.value = '';
+                field.value = "";
                 this.clearFieldError(field);
-                field.removeAttribute('required');
+                field.removeAttribute("required");
             }
         });
     }
     setDataDrivenFieldsRequired(suffix, required) {
         const fields = this.getDataDrivenFields(suffix);
-        Object.values(fields).forEach(field => {
+        Object.values(fields).forEach((field) => {
             if (field) {
                 if (required) {
-                    field.setAttribute('required', 'required');
+                    field.setAttribute("required", "required");
                 }
                 else {
-                    field.removeAttribute('required');
+                    field.removeAttribute("required");
                 }
             }
         });
     }
     attachFieldValidators(form) {
-        const fields = form.querySelectorAll('input[required], select[required]');
-        fields.forEach(field => {
-            if (field.tagName === 'INPUT') {
-                field.addEventListener('blur', () => this.validateField(field, form));
-                field.addEventListener('input', () => this.clearFieldError(field));
+        const fields = form.querySelectorAll("input[required], select[required]");
+        fields.forEach((field) => {
+            if (field.tagName === "INPUT") {
+                field.addEventListener("blur", () => this.validateField(field, form));
+                field.addEventListener("input", () => this.clearFieldError(field));
             }
-            else if (field.tagName === 'SELECT') {
-                field.addEventListener('change', () => this.validateField(field, form));
-                field.addEventListener('change', () => this.clearFieldError(field));
+            else if (field.tagName === "SELECT") {
+                field.addEventListener("change", () => this.validateField(field, form));
+                field.addEventListener("change", () => this.clearFieldError(field));
             }
         });
     }
     validateField(field, form) {
         const fieldName = field.name;
         const value = field.value.trim();
-        const isModal = form.id === 'calculatorFormModal';
-        const isRequired = field.hasAttribute('required');
+        const isModal = form.id === "calculatorFormModal";
+        const isRequired = field.hasAttribute("required");
         // Clear previous error
         this.clearFieldError(field);
         // Check if field is empty and required
         if (isRequired && !value) {
-            return this.createAndDisplayError(field, ValidationErrorCode.REQUIRED_FIELD, 'This field is required', fieldName, isModal);
+            return this.createAndDisplayError(field, ValidationErrorCode.REQUIRED_FIELD, "This field is required", fieldName, isModal);
         }
         // Skip validation if field is empty and not required
         if (!value) {
             return null;
         }
         // Validate based on field type and name
-        if (field.tagName === 'SELECT') {
+        if (field.tagName === "SELECT") {
             // Validate bedrooms (must be 1-4)
-            if (fieldName === 'bedrooms') {
+            if (fieldName === "bedrooms") {
                 const bedroomsValue = parseInt(value);
                 if (isNaN(bedroomsValue) || bedroomsValue < 1 || bedroomsValue > 4) {
-                    return this.createAndDisplayError(field, ValidationErrorCode.BEDROOMS_OUT_OF_RANGE, 'Please select a number of bedrooms between 1 and 4', fieldName, isModal);
+                    return this.createAndDisplayError(field, ValidationErrorCode.BEDROOMS_OUT_OF_RANGE, "Please select a number of bedrooms between 1 and 4", fieldName, isModal);
                 }
             }
         }
-        else if (field.tagName === 'INPUT') {
+        else if (field.tagName === "INPUT") {
             const inputField = field;
-            if (inputField.type === 'email') {
+            if (inputField.type === "email") {
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(value)) {
-                    return this.createAndDisplayError(inputField, ValidationErrorCode.INVALID_EMAIL, 'Please enter a valid email address', fieldName, isModal);
+                    return this.createAndDisplayError(inputField, ValidationErrorCode.INVALID_EMAIL, "Please enter a valid email address", fieldName, isModal);
                 }
             }
-            else if (inputField.type === 'number') {
+            else if (inputField.type === "number") {
                 const numValue = parseFloat(value);
                 if (isNaN(numValue)) {
-                    return this.createAndDisplayError(inputField, ValidationErrorCode.INVALID_NUMBER, 'Please enter a valid number', fieldName, isModal);
+                    return this.createAndDisplayError(inputField, ValidationErrorCode.INVALID_NUMBER, "Please enter a valid number", fieldName, isModal);
                 }
                 // Validate surface (20-120)
-                if (fieldName === 'surface') {
+                if (fieldName === "surface") {
                     if (numValue < 20 || numValue > 120) {
-                        return this.createAndDisplayError(inputField, ValidationErrorCode.SURFACE_OUT_OF_RANGE, 'Surface must be between 20 and 120 m²', fieldName, isModal);
+                        return this.createAndDisplayError(inputField, ValidationErrorCode.SURFACE_OUT_OF_RANGE, "Surface must be between 20 and 120 m²", fieldName, isModal);
                     }
                 }
                 // Validate location score (5-10)
-                else if (fieldName === 'locationScore') {
+                else if (fieldName === "locationScore") {
                     if (numValue < 5 || numValue > 10) {
-                        return this.createAndDisplayError(inputField, ValidationErrorCode.LOCATION_SCORE_OUT_OF_RANGE, 'Location score must be between 5.0 and 10.0', fieldName, isModal);
+                        return this.createAndDisplayError(inputField, ValidationErrorCode.LOCATION_SCORE_OUT_OF_RANGE, "Location score must be between 5.0 and 10.0", fieldName, isModal);
                     }
                 }
                 // Validate other number fields
                 else {
                     if (numValue < 0) {
-                        return this.createAndDisplayError(inputField, ValidationErrorCode.NEGATIVE_NUMBER, 'Please enter a positive number', fieldName, isModal);
+                        return this.createAndDisplayError(inputField, ValidationErrorCode.NEGATIVE_NUMBER, "Please enter a positive number", fieldName, isModal);
                     }
                     if (numValue === 0) {
-                        return this.createAndDisplayError(inputField, ValidationErrorCode.ZERO_VALUE, 'Please enter a value greater than zero', fieldName, isModal);
+                        return this.createAndDisplayError(inputField, ValidationErrorCode.ZERO_VALUE, "Please enter a value greater than zero", fieldName, isModal);
                     }
                 }
             }
@@ -214,28 +214,28 @@ class Calculator {
     }
     displayFieldError(field, error, isModal) {
         // Add error class to field
-        field.classList.add('is-invalid');
+        field.classList.add("is-invalid");
         // Create or update error message element
-        let errorElement = field.parentElement?.querySelector('.invalid-feedback');
+        let errorElement = field.parentElement?.querySelector(".invalid-feedback");
         if (!errorElement) {
-            errorElement = document.createElement('div');
-            errorElement.className = 'invalid-feedback';
+            errorElement = document.createElement("div");
+            errorElement.className = "invalid-feedback";
             field.parentElement?.appendChild(errorElement);
         }
         errorElement.textContent = error.message;
-        errorElement.setAttribute('data-error-code', error.code);
+        errorElement.setAttribute("data-error-code", error.code);
     }
     clearFieldError(field) {
-        field.classList.remove('is-invalid');
-        const errorElement = field.parentElement?.querySelector('.invalid-feedback');
+        field.classList.remove("is-invalid");
+        const errorElement = field.parentElement?.querySelector(".invalid-feedback");
         if (errorElement) {
             errorElement.remove();
         }
     }
     validateForm(form) {
         const errors = [];
-        const fields = form.querySelectorAll('input[required], select[required]');
-        fields.forEach(field => {
+        const fields = form.querySelectorAll("input[required], select[required]");
+        fields.forEach((field) => {
             const error = this.validateField(field, form);
             if (error) {
                 errors.push(error);
@@ -249,7 +249,7 @@ class Calculator {
         const errors = this.validateForm(form);
         if (errors.length > 0) {
             // Focus on first error field
-            const firstErrorField = form.querySelector('.is-invalid');
+            const firstErrorField = form.querySelector(".is-invalid");
             if (firstErrorField) {
                 firstErrorField.focus();
             }
@@ -257,15 +257,15 @@ class Calculator {
         }
         const formDataObj = new FormData(form);
         const data = {
-            purchasePrice: parseFloat(formDataObj.get('purchasePrice')),
-            monthlyRent: parseFloat(formDataObj.get('monthlyRent')),
-            annualFee: parseFloat(formDataObj.get('annualFee')),
-            email: formDataObj.get('email')
+            purchasePrice: parseFloat(formDataObj.get("purchasePrice")),
+            monthlyRent: parseFloat(formDataObj.get("monthlyRent")),
+            annualFee: parseFloat(formDataObj.get("annualFee")),
+            email: formDataObj.get("email"),
         };
         // Add optional data driven analysis fields if they exist
-        const surface = formDataObj.get('surface');
-        const bedrooms = formDataObj.get('bedrooms');
-        const locationScore = formDataObj.get('locationScore');
+        const surface = formDataObj.get("surface");
+        const bedrooms = formDataObj.get("bedrooms");
+        const locationScore = formDataObj.get("locationScore");
         if (surface) {
             data.surface = parseFloat(surface);
         }
@@ -277,7 +277,7 @@ class Calculator {
         }
         this.displayResults(data);
         // Close modal if it's open
-        const modalElement = document.getElementById('calculatorModal');
+        const modalElement = document.getElementById("calculatorModal");
         if (modalElement) {
             // Access Bootstrap modal through window object
             const bootstrapModal = window.bootstrap?.Modal;
@@ -291,25 +291,25 @@ class Calculator {
     }
     async saveSimulation(data) {
         try {
-            const response = await fetch('/api/simulations', {
-                method: 'POST',
+            const response = await fetch("/api/simulations", {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     propertyPurchasePrice: data.purchasePrice,
                     monthlyRentalAmount: data.monthlyRent,
                     annualRentalFee: data.annualFee,
-                    prospectEmailAddress: data.email
-                })
+                    prospectEmailAddress: data.email,
+                }),
             });
             if (!response.ok) {
                 const errorData = await response.json();
-                console.error('Failed to save simulation:', errorData);
+                console.error("Failed to save simulation:", errorData);
             }
         }
         catch (error) {
-            console.error('Error saving simulation:', error);
+            console.error("Error saving simulation:", error);
         }
     }
     displayResults(data) {
@@ -319,7 +319,7 @@ class Calculator {
         // Calculate annual rent
         const threeYearRent = data.monthlyRent * 12 * 3;
         const threeYearFee = data.annualFee * 3;
-        const threeYearCommission = (data.monthlyRent * 12) * (0.3 + 0.25 + 0.2);
+        const threeYearCommission = data.monthlyRent * 12 * (0.3 + 0.25 + 0.2);
         const threeYearMonthlyAverageNetIncome = (threeYearRent - threeYearFee - threeYearCommission) / 36;
         const monthlyNetReturnForThreeYears = (threeYearMonthlyAverageNetIncome / data.purchasePrice) * 100;
         // Calculate Expected Monthly Net Income if data-driven analysis fields are present
@@ -328,11 +328,11 @@ class Calculator {
         if (data.surface && data.bedrooms && data.locationScore) {
             // Calculate annual_paid_price using the formula:
             // annual_paid_price ≈ e^3.608 * surface_m2^0.285 * bedrooms^-0.043 * location_score^0.851 * avg_listed_price^0.735
-            const annualPaidPrice = Math.exp(3.608)
-                * Math.pow(data.surface, 0.285)
-                * Math.pow(data.bedrooms, -0.043)
-                * Math.pow(data.locationScore, 0.851)
-                * Math.pow(data.monthlyRent / 30, 0.735);
+            const annualPaidPrice = Math.exp(3.608) *
+                Math.pow(data.surface, 0.285) *
+                Math.pow(data.bedrooms, -0.043) *
+                Math.pow(data.locationScore, 0.851) *
+                Math.pow(data.monthlyRent / 30, 0.735);
             // Calculate expected monthly net income over 3 years:
             // Following the same pattern as the existing calculation:
             // - Total income over 3 years: annual_paid_price * 3
@@ -346,14 +346,15 @@ class Calculator {
             const threeYearNetIncome = threeYearIncome - commission - threeYearFeeTotal;
             expectedMonthlyNetIncome = threeYearNetIncome / 36;
             // Calculate expected monthly net return percentage
-            expectedMonthlyNetReturn = (expectedMonthlyNetIncome / data.purchasePrice) * 100;
+            expectedMonthlyNetReturn =
+                (expectedMonthlyNetIncome / data.purchasePrice) * 100;
         }
         // Populate the existing elements in the partial
-        const averageMonthlyNetIncomeEl = document.getElementById('averageMonthlyNetIncome');
-        const monthlyNetReturnEl = document.getElementById('monthlyNetReturn');
-        const expectedIncomeSectionEl = document.getElementById('expectedIncomeSection');
-        const expectedMonthlyNetIncomeEl = document.getElementById('expectedMonthlyNetIncome');
-        const expectedMonthlyNetReturnEl = document.getElementById('expectedMonthlyNetReturn');
+        const averageMonthlyNetIncomeEl = document.getElementById("averageMonthlyNetIncome");
+        const monthlyNetReturnEl = document.getElementById("monthlyNetReturn");
+        const expectedIncomeSectionEl = document.getElementById("expectedIncomeSection");
+        const expectedMonthlyNetIncomeEl = document.getElementById("expectedMonthlyNetIncome");
+        const expectedMonthlyNetReturnEl = document.getElementById("expectedMonthlyNetReturn");
         if (averageMonthlyNetIncomeEl) {
             averageMonthlyNetIncomeEl.textContent = `$${threeYearMonthlyAverageNetIncome.toFixed(2)}`;
         }
@@ -362,8 +363,9 @@ class Calculator {
         }
         // Show/hide expected income section based on whether data-driven fields are present
         if (expectedIncomeSectionEl) {
-            if (expectedMonthlyNetIncome !== null && expectedMonthlyNetReturn !== null) {
-                expectedIncomeSectionEl.classList.remove('d-none');
+            if (expectedMonthlyNetIncome !== null &&
+                expectedMonthlyNetReturn !== null) {
+                expectedIncomeSectionEl.classList.remove("d-none");
                 if (expectedMonthlyNetIncomeEl) {
                     expectedMonthlyNetIncomeEl.textContent = `$${expectedMonthlyNetIncome.toFixed(2)}`;
                 }
@@ -372,18 +374,21 @@ class Calculator {
                 }
             }
             else {
-                expectedIncomeSectionEl.classList.add('d-none');
+                expectedIncomeSectionEl.classList.add("d-none");
             }
         }
         // Show the results container
-        this.resultsContainer.classList.remove('d-none');
+        this.resultsContainer.classList.remove("d-none");
         // Scroll to results
-        this.resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        this.resultsContainer.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
         // Save simulation to MongoDB
         this.saveSimulation(data);
     }
 }
 // Initialize calculator when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
     new Calculator();
 });

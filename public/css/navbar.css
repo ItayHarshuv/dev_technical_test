@@ -1,75 +1,75 @@
 .navbar-brand {
-    font-family: Cinzel, serif;
-    font-weight: 400;
-    color: var(--color-button-primary);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 1.5rem;
-    gap: 10px;
+  font-family: Cinzel, serif;
+  font-weight: 400;
+  color: var(--color-button-primary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 1.5rem;
+  gap: 10px;
 }
 
 .navbar-brand:hover {
-    color: var(--color-button-primary);
-    opacity: 1;
+  color: var(--color-button-primary);
+  opacity: 1;
 }
 
 .navbar-toggler:focus {
-    box-shadow: none;
+  box-shadow: none;
 }
 
 .navbar-toggler-icon {
-    width: 24px;
-    height: 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .navbar-nav {
-    gap: 30px;
+  gap: 30px;
 }
 
 .nav-link {
-    font-family: Louize, Times, serif;
-    color: var(--color-text-dark);
-    font-size: 1.2rem;
-    padding: 0.5rem 0;
-    position: relative;
-    text-decoration: none;
+  font-family: Louize, Times, serif;
+  color: var(--color-text-dark);
+  font-size: 1.2rem;
+  padding: 0.5rem 0;
+  position: relative;
+  text-decoration: none;
 }
 
 .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background-color: var(--color-text-dark);
-    transform: translateX(-50%);
-    transition: width 0.3s ease;
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-text-dark);
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
 }
 
 .nav-link:hover::after {
-    width: 100%;
+  width: 100%;
 }
 
 .navbar-icon {
-    height: 30px;
-    width: 30px;
+  height: 30px;
+  width: 30px;
 }
 
 @media (min-width: 992px) {
-    .navbar-nav {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-    }
+  .navbar-nav {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 @media (max-width: 768px) {
-    .navbar-icon {
-        height: 21px;
-        width: 21px;
-    }
-    .navbar-brand {
-        font-size: 1.1rem;
-    }
+  .navbar-icon {
+    height: 21px;
+    width: 21px;
+  }
+  .navbar-brand {
+    font-size: 1.1rem;
+  }
 }

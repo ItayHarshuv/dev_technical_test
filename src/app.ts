@@ -1,7 +1,7 @@
-import express, { Express } from 'express';
-import path from 'path';
-import { connectDatabase } from './config/database';
-import routes from './routes';
+import express, { Express } from "express";
+import path from "path";
+import { connectDatabase } from "./config/database";
+import routes from "./routes";
 
 const app: Express = express();
 const PORT = process.env.PORT || 3000;
@@ -10,18 +10,18 @@ const PORT = process.env.PORT || 3000;
 connectDatabase();
 
 // View engine setup
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 // Resolve views path: works in both development (src/views) and production (dist/views)
-const viewsPath = path.resolve(__dirname, 'views');
-app.set('views', viewsPath);
+const viewsPath = path.resolve(__dirname, "views");
+app.set("views", viewsPath);
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, "../public")));
 
 // Routes
-app.use('/', routes);
+app.use("/", routes);
 
 // Start server
 app.listen(PORT, () => {
@@ -32,4 +32,3 @@ app.listen(PORT, () => {
 });
 
 export default app;
-

@@ -25,6 +25,7 @@ Before you begin, ensure you have the following installed:
 This is the easiest way to get started as it handles all dependencies automatically.
 
 1. **Start the development environment:**
+
    ```bash
    docker-compose up
    ```
@@ -34,6 +35,7 @@ This is the easiest way to get started as it handles all dependencies automatica
    - MongoDB: localhost:27017
 
 3. **To stop the containers:**
+
    ```bash
    docker-compose down
    ```
@@ -44,6 +46,7 @@ This is the easiest way to get started as it handles all dependencies automatica
    ```
 
 The Docker setup includes:
+
 - Hot-reload development server (changes to `src/` are automatically reflected)
 - MongoDB database
 - All necessary environment variables
@@ -53,6 +56,7 @@ The Docker setup includes:
 If you prefer to run the project locally without Docker:
 
 1. **Install dependencies:**
+
    ```bash
    npm install
    ```
@@ -63,6 +67,7 @@ If you prefer to run the project locally without Docker:
    - Update the `MONGODB_URI` environment variable accordingly
 
 3. **Create a `.env` file** (if needed):
+
    ```bash
    NODE_ENV=development
    PORT=3000
@@ -70,15 +75,19 @@ If you prefer to run the project locally without Docker:
    ```
 
 4. **Build the client-side TypeScript:**
+
    ```bash
    npm run build:client
    ```
+
    Or watch for changes:
+
    ```bash
    npm run watch:client
    ```
 
 5. **Start the development server:**
+
    ```bash
    npm run dev
    ```
@@ -117,6 +126,7 @@ When committing your changes, use clear and descriptive messages:
 - Add more details in the body if needed
 
 Examples:
+
 - `Add: admin page authentication`
 - `Fix: calculation formula for monthly net return`
 - `Update: MongoDB connection handling`
@@ -159,7 +169,7 @@ Examples:
 function calculateMonthlyNetIncome(
   purchasePrice: number,
   monthlyRent: number,
-  annualFee: number
+  annualFee: number,
 ): number {
   // Implementation
 }
@@ -198,5 +208,3 @@ If you need help or have questions:
 1. Check existing issues and pull requests
 2. Review the README.md for project overview
 3. Open a new issue with your question
-
-

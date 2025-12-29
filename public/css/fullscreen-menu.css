@@ -1,61 +1,61 @@
 .fullscreen-menu-overlay {
-    background-color: rgba(44, 36, 22, 0.95);
-    z-index: 9999;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+  background-color: rgba(44, 36, 22, 0.95);
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
 }
 
 .fullscreen-menu-overlay.show {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
 .fullscreen-menu-content {
-    background-color: var(--color-background);
-    padding: 40px;
-    width: 90%;
-    max-width: 1200px;
-    height: 85%;
-    max-height: 800px;
-    position: relative;
+  background-color: var(--color-background);
+  padding: 40px;
+  width: 90%;
+  max-width: 1200px;
+  height: 85%;
+  max-height: 800px;
+  position: relative;
 }
 
 .w-90 {
-    width: 90%;
+  width: 90%;
 }
 
 .fullscreen-menu-close {
-    font-size: 2rem;
-    width: 40px;
-    height: 40px;
-    color: var(--color-text-dark);
-    transition: color 0.3s ease;
+  font-size: 2rem;
+  width: 40px;
+  height: 40px;
+  color: var(--color-text-dark);
+  transition: color 0.3s ease;
 }
 
 .fullscreen-menu-close:hover {
-    color: var(--color-button-primary);
+  color: var(--color-button-primary);
 }
 
 .fullscreen-menu-close span {
-    line-height: 1;
+  line-height: 1;
 }
 
 .fullscreen-nav-link {
-    font-size: 2rem;
-    letter-spacing: 2px;
+  font-size: 2rem;
+  letter-spacing: 2px;
 }
 
 .fullscreen-nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background-color: var(--color-button-primary);
-    transform: translateX(-50%);
-    transition: width 0.3s ease;
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-button-primary);
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
 }
-
-
