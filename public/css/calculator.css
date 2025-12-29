@@ -6,22 +6,25 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.85) !important;
 }
 
 .search-field-section {
-  padding: 20px 24px;
+  padding: 12px 24px;
 }
 
 .search-field-divider {
   width: 1px;
   background-color: #e0e0e0;
-  margin: 12px 0;
+  margin: 8px 0;
 }
 
 .search-field-label {
   font-family: "Inter", sans-serif;
   font-size: 0.75rem;
   letter-spacing: 0.5px;
+  text-align: left;
+  margin-bottom: 0.5rem;
 }
 
 .search-field-input {
@@ -61,11 +64,11 @@
 }
 
 .search-button-inline {
-  padding: 20px 40px;
-  border-radius: 0 8px 8px 0;
+  padding: 12px 32px;
+  border-radius: 8px;
   letter-spacing: 1px;
-  align-self: stretch;
-  min-height: 100%;
+  margin: 8px 24px;
+  align-self: center;
 }
 
 /* Calculate button font */
