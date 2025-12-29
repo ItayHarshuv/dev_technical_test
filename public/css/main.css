@@ -1,3 +1,12 @@
+/* Louize Font Face */
+@font-face {
+  font-family: 'Louize';
+  src: url('/fonts/Louize.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Base color palette */
   --color-background: #efe7e3;

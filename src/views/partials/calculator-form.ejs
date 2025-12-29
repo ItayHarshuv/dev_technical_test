@@ -68,7 +68,7 @@
                         <input type="email" class="<%= inputClass %>" id="<%= emailId %>" name="email" placeholder="Enter email" required>
                     </div>
                     
-                    <button type="submit" class="btn btn-primary text-uppercase search-button-inline">CALCULATE</button>
+                    <button type="submit" class="btn btn-primary text-uppercase search-button-inline calculate-button">CALCULATE</button>
                 </div>
                 
                 <div id="<%= dataDrivenFieldsId %>" class="<%= isDesktop ? 'd-none d-flex flex-row align-items-start data-driven-fields-container' : 'd-none' %>">
@@ -162,7 +162,7 @@
     
     <% if (isModal) { %>
         <div class="<%= submitWrapperClass %>">
-            <button type="submit" class="btn btn-primary px-5 py-3 text-uppercase">CALCULATE</button>
+            <button type="submit" class="btn btn-primary px-5 py-3 text-uppercase calculate-button">CALCULATE</button>
         </div>
     <% } %>
 </form>
