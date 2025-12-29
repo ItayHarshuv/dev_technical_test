@@ -21,11 +21,11 @@
     
     // Set classes based on context
     const formClasses = isDesktop ? 'd-none d-lg-flex flex-column align-items-center gap-0 mt-4 w-100 calculator-form-desktop' : '';
-    const fieldWrapperClass = isDesktop ? 'search-field-section flex-fill d-flex flex-column justify-content-center' : 'mb-3';
-    const labelClass = isDesktop ? 'search-field-label mb-2' : 'form-label';
-    const inputClass = isDesktop ? 'search-field-input' : 'form-control';
-    const fieldsContainerClass = isDesktop ? 'search-box-container bg-white rounded d-flex flex-column flex-fill w-100' : '';
-    const dataDrivenFieldsClass = isDesktop ? 'd-none d-flex align-items-end gap-3 mt-2' : 'd-none';
+    const fieldWrapperClass = isDesktop ? 'search-field-section p-3 px-4 flex-fill d-flex flex-column justify-content-center' : 'mb-3';
+    const labelClass = isDesktop ? 'search-field-label text-start mb-2' : 'form-label';
+    const inputClass = isDesktop ? 'search-field-input w-100' : 'form-control';
+    const fieldsContainerClass = isDesktop ? 'search-box-container bg-white rounded shadow d-flex flex-column flex-fill w-100' : '';
+    const dataDrivenFieldsClass = isDesktop ? 'd-none d-flex align-items-end gap-4 mt-2' : 'd-none';
     const toggleButtonClass = isDesktop ? 'btn btn-outline-secondary btn-sm' : 'btn btn-outline-secondary';
     const toggleWrapperClass = isDesktop ? 'd-flex justify-content-center mt-2' : 'mb-3 d-flex justify-content-center';
     const submitWrapperClass = isDesktop ? '' : 'd-grid';
@@ -68,19 +68,19 @@
                         <input type="email" class="<%= inputClass %>" id="<%= emailId %>" name="email" placeholder="Enter email" required>
                     </div>
                     
-                    <button type="submit" class="btn btn-primary text-uppercase search-button-inline calculate-button">CALCULATE</button>
+                    <button type="submit" class="btn btn-primary text-uppercase search-button-inline px-4 py-3 rounded my-2 mx-4 align-self-center calculate-button">CALCULATE</button>
                 </div>
                 
-                <div id="<%= dataDrivenFieldsId %>" class="<%= isDesktop ? 'd-none d-flex flex-row align-items-start data-driven-fields-container' : 'd-none' %>">
+                <div id="<%= dataDrivenFieldsId %>" class="<%= isDesktop ? 'd-none d-flex flex-row align-items-start data-driven-fields-container gap-4 py-3 px-4 border-top' : 'd-none' %>">
                     <div class="data-driven-field flex-fill d-flex flex-column">
                         <label for="<%= surfaceId %>" class="<%= labelClass %>">Surface (m²)</label>
-                        <input type="number" class="form-control" id="<%= surfaceId %>" name="surface" placeholder="20-120" min="20" max="120" step="0.01">
+                        <input type="number" class="form-control rounded-1 px-3 py-2" id="<%= surfaceId %>" name="surface" placeholder="20-120" min="20" max="120" step="0.01">
                         <div class="invalid-feedback"></div>
                     </div>
                     
                     <div class="data-driven-field flex-fill d-flex flex-column">
                         <label for="<%= bedroomsId %>" class="<%= labelClass %>">Number of Bedrooms</label>
-                        <select class="form-select" id="<%= bedroomsId %>" name="bedrooms">
+                        <select class="form-select rounded-1 px-3 py-2" id="<%= bedroomsId %>" name="bedrooms">
                             <option value="">Select bedrooms</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -92,7 +92,7 @@
                     
                     <div class="data-driven-field flex-fill d-flex flex-column">
                         <label for="<%= locationScoreId %>" class="<%= labelClass %>">Location Score</label>
-                        <input type="number" class="form-control" id="<%= locationScoreId %>" name="locationScore" placeholder="5.0-10.0" min="5" max="10" step="0.1">
+                        <input type="number" class="form-control rounded-1 px-3 py-2" id="<%= locationScoreId %>" name="locationScore" placeholder="5.0-10.0" min="5" max="10" step="0.1">
                         <div class="invalid-feedback"></div>
                     </div>
                 </div>

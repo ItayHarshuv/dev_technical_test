@@ -4,7 +4,7 @@
         <button class="navbar-toggler pe-0 me-0 border-0 d-flex d-lg-none align-items-center justify-content-center" type="button" id="navbarToggleBtn" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-nav d-none d-lg-flex" id="navbarNav">
+        <div class="navbar-nav gap-4 d-none d-lg-flex" id="navbarNav">
             <a class="nav-link <%= typeof activePage !== 'undefined' && activePage === 'home' ? 'active' : '' %>" href="/">Calculator</a>
             <a class="nav-link <%= typeof activePage !== 'undefined' && activePage === 'admin' ? 'active' : '' %>" href="/admin">Admin</a>
         </div>
@@ -13,7 +13,7 @@
 
 <!-- Full-screen overlay menu -->
 <div class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center fullscreen-menu-overlay" id="fullscreenMenu">
-    <div class="fullscreen-menu-content w-90 d-flex flex-column overflow-auto">
+    <div class="fullscreen-menu-content d-flex flex-column overflow-auto">
         <div class="d-flex justify-content-between align-items-center mb-auto">
             <%- include('_brand-logo', { brandClasses: 'text-primary text-uppercase d-flex align-items-center gap-2 text-decoration-none' }) %>
             <button class="btn btn-link p-0 fullscreen-menu-close d-flex align-items-center justify-content-center" id="closeMenuBtn" aria-label="Close menu">
