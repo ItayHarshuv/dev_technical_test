@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-export interface INetYieldSimulation extends Document {
+export interface NetYieldSimulation extends Document {
   propertyPurchasePrice: number;
   monthlyRentalAmount: number;
   annualRentalFee: number;
@@ -8,7 +8,7 @@ export interface INetYieldSimulation extends Document {
   createdAt: Date;
 }
 
-const NetYieldSimulationSchema: Schema = new Schema(
+const NetYieldSimulationSchema = new Schema(
   {
     propertyPurchasePrice: {
       type: Number,
@@ -41,7 +41,7 @@ const NetYieldSimulationSchema: Schema = new Schema(
   },
 );
 
-export default mongoose.model<INetYieldSimulation>(
+export default mongoose.model<NetYieldSimulation>(
   "NetYieldSimulation",
   NetYieldSimulationSchema,
 );
