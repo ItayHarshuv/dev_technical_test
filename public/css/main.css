@@ -1,96 +1,131 @@
 :root {
+  /* Base color palette */
   --color-background: #efe7e3;
   --color-text-dark: #2c2416;
-  --color-button-primary: #28a745;
-  --color-button-hover: #218838;
   --color-text-light: white;
-  --bg-primary: #28a745;
+  --color-text-black: #000;
+  
+  /* Primary color variants */
+  --color-primary: #28a745;
+  --color-primary-hover: #218838;
+  --color-primary-active: #1e7e34;
+  --color-primary-darkest: #1c7430;
+  --color-primary-rgb: 40, 167, 69;
+  --color-primary-hover-rgb: 33, 136, 56;
+  
+  /* Primary color with opacity variants */
+  --color-primary-05: rgba(40, 167, 69, 0.05);
+  --color-primary-075: rgba(40, 167, 69, 0.075);
+  --color-primary-10: rgba(40, 167, 69, 0.1);
+  --color-primary-25: rgba(40, 167, 69, 0.25);
+  --color-primary-50: rgba(40, 167, 69, 0.5);
+  
+  /* Primary color semantic variants */
+  --color-primary-bg-subtle: #d4edda;
+  --color-primary-border-subtle: #c3e6cb;
+  --color-primary-text-emphasis: #155724;
 
-  --bs-primary: #28a745;
-  --bs-primary-rgb: 40, 167, 69;
-  --bs-primary-bg-subtle: #d4edda;
-  --bs-primary-border-subtle: #c3e6cb;
-  --bs-primary-text-emphasis: #155724;
+  /* Legacy aliases for backward compatibility */
+  --color-button-primary: var(--color-primary);
+  --color-button-hover: var(--color-primary-hover);
+  --bg-primary: var(--color-primary);
 
-  --bs-link-color: #28a745;
-  --bs-link-color-rgb: 40, 167, 69;
-  --bs-link-hover-color: #218838;
-  --bs-link-hover-color-rgb: 33, 136, 56;
+  /* Bootstrap primary variables */
+  --bs-primary: var(--color-primary);
+  --bs-primary-rgb: var(--color-primary-rgb);
+  --bs-primary-bg-subtle: var(--color-primary-bg-subtle);
+  --bs-primary-border-subtle: var(--color-primary-border-subtle);
+  --bs-primary-text-emphasis: var(--color-primary-text-emphasis);
 
-  --bs-primary-active-border-color: #1e7e34;
-  --bs-primary-active-bg: #218838;
-  --bs-primary-active-color: #fff;
+  /* Bootstrap link variables */
+  --bs-link-color: var(--color-primary);
+  --bs-link-color-rgb: var(--color-primary-rgb);
+  --bs-link-hover-color: var(--color-primary-hover);
+  --bs-link-hover-color-rgb: var(--color-primary-hover-rgb);
+
+  /* Bootstrap primary active variables */
+  --bs-primary-active-border-color: var(--color-primary-active);
+  --bs-primary-active-bg: var(--color-primary-hover);
+  --bs-primary-active-color: var(--color-text-light);
   --bs-primary-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 
-  --bs-primary-focus-ring-color: rgba(40, 167, 69, 0.5);
+  /* Bootstrap primary focus ring */
+  --bs-primary-focus-ring-color: var(--color-primary-50);
 
-  --bs-table-bg: #28a745;
-  --bs-table-striped-bg: rgba(40, 167, 69, 0.05);
-  --bs-table-striped-color: #000;
-  --bs-table-active-bg: rgba(40, 167, 69, 0.1);
-  --bs-table-active-color: #000;
-  --bs-table-hover-bg: rgba(40, 167, 69, 0.075);
-  --bs-table-hover-color: #000;
+  /* Bootstrap table variables */
+  --bs-table-bg: var(--color-primary);
+  --bs-table-striped-bg: var(--color-primary-05);
+  --bs-table-striped-color: var(--color-text-black);
+  --bs-table-active-bg: var(--color-primary-10);
+  --bs-table-active-color: var(--color-text-black);
+  --bs-table-hover-bg: var(--color-primary-075);
+  --bs-table-hover-color: var(--color-text-black);
 
-  --bs-alert-bg: #d4edda;
-  --bs-alert-border-color: #c3e6cb;
-  --bs-alert-color: #155724;
+  /* Bootstrap alert variables */
+  --bs-alert-bg: var(--color-primary-bg-subtle);
+  --bs-alert-border-color: var(--color-primary-border-subtle);
+  --bs-alert-color: var(--color-primary-text-emphasis);
 
-  --bs-badge-color: #fff;
-  --bs-badge-bg: #28a745;
+  /* Bootstrap badge variables */
+  --bs-badge-color: var(--color-text-light);
+  --bs-badge-bg: var(--color-primary);
 
-  --bs-form-valid-color: #28a745;
-  --bs-form-valid-border-color: #28a745;
-  --bs-form-focus-color: rgba(40, 167, 69, 0.25);
-  --bs-form-focus-border-color: #28a745;
+  /* Bootstrap form variables */
+  --bs-form-valid-color: var(--color-primary);
+  --bs-form-valid-border-color: var(--color-primary);
+  --bs-form-focus-color: var(--color-primary-25);
+  --bs-form-focus-border-color: var(--color-primary);
 
-  --bs-pagination-active-bg: #28a745;
-  --bs-pagination-active-border-color: #28a745;
-  --bs-pagination-focus-color: #218838;
-  --bs-pagination-hover-color: #218838;
+  /* Bootstrap pagination variables */
+  --bs-pagination-active-bg: var(--color-primary);
+  --bs-pagination-active-border-color: var(--color-primary);
+  --bs-pagination-focus-color: var(--color-primary-hover);
+  --bs-pagination-hover-color: var(--color-primary-hover);
 
-  --bs-progress-bar-bg: #28a745;
+  /* Bootstrap progress bar variables */
+  --bs-progress-bar-bg: var(--color-primary);
 
-  --bs-list-group-active-bg: #28a745;
-  --bs-list-group-active-border-color: #28a745;
+  /* Bootstrap list group variables */
+  --bs-list-group-active-bg: var(--color-primary);
+  --bs-list-group-active-border-color: var(--color-primary);
 }
 
 .btn-primary {
-  --bs-btn-bg: #28a745;
-  --bs-btn-border-color: #28a745;
-  --bs-btn-hover-bg: #218838;
-  --bs-btn-hover-border-color: #1e7e34;
-  --bs-btn-active-bg: #1e7e34;
-  --bs-btn-active-border-color: #1c7430;
-  --bs-btn-disabled-bg: #28a745;
-  --bs-btn-disabled-border-color: #28a745;
+  --bs-btn-bg: var(--color-primary);
+  --bs-btn-border-color: var(--color-primary);
+  --bs-btn-hover-bg: var(--color-primary-hover);
+  --bs-btn-hover-border-color: var(--color-primary-active);
+  --bs-btn-active-bg: var(--color-primary-active);
+  --bs-btn-active-border-color: var(--color-primary-darkest);
+  --bs-btn-disabled-bg: var(--color-primary);
+  --bs-btn-disabled-border-color: var(--color-primary);
 }
 
 .btn-outline-primary {
-  --bs-btn-color: #28a745;
-  --bs-btn-border-color: #28a745;
-  --bs-btn-hover-bg: #28a745;
-  --bs-btn-hover-border-color: #28a745;
-  --bs-btn-active-bg: #218838;
-  --bs-btn-active-border-color: #1e7e34;
-  --bs-btn-disabled-color: #28a745;
-  --bs-btn-disabled-border-color: #28a745;
+  --bs-btn-color: var(--color-primary);
+  --bs-btn-border-color: var(--color-primary);
+  --bs-btn-hover-bg: var(--color-primary);
+  --bs-btn-hover-border-color: var(--color-primary);
+  --bs-btn-active-bg: var(--color-primary-hover);
+  --bs-btn-active-border-color: var(--color-primary-active);
+  --bs-btn-disabled-color: var(--color-primary);
+  --bs-btn-disabled-border-color: var(--color-primary);
 }
 
 .form-control:focus,
 .form-select:focus {
-  border-color: #28a745;
-  box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 0.25rem var(--color-primary-25);
 }
 
 .form-check-input:checked {
-  background-color: #28a745;
-  border-color: #28a745;
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 .form-check-input:focus {
-  border-color: #28a745;
-  box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 0.25rem var(--color-primary-25);
 }
 
 body {
