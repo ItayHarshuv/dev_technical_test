@@ -490,7 +490,7 @@ function handleSubmit(event: Event, form: HTMLFormElement): void {
 
 function initializeForms(): void {
   const formConfigs = [
-    { id: "calculatorForm", suffix: "Desktop" },
+    { id: "calculatorForm", suffix: "" },
     { id: "calculatorFormModal", suffix: "Modal" },
   ];
 
@@ -507,9 +507,9 @@ function initializeForms(): void {
 function initializeDataDrivenToggle(): void {
   const toggleConfigs = [
     {
-      toggleId: "dataDrivenToggleDesktop",
-      fieldsId: "dataDrivenFieldsDesktop",
-      suffix: "Desktop",
+      toggleId: "dataDrivenToggle",
+      fieldsId: "dataDrivenFields",
+      suffix: "",
       containerId: "searchBoxContainerDesktop",
     },
     {
@@ -531,11 +531,11 @@ function initializeDataDrivenToggle(): void {
           fields.classList.add("d-none");
           clearDataDrivenFields(config.suffix);
 
-          // Update button text
-          toggle.textContent = "Data Driven Analysis";
+          // Update button text (info icon is a sibling, so it won't be affected)
+          toggle.textContent = "Advance";
 
           // For desktop: remove expanded state
-          if (config.suffix === "Desktop" && config.containerId) {
+          if (config.suffix === "" && config.containerId) {
             const container = document.getElementById(config.containerId);
             if (container) {
               container.classList.remove("expanded");
@@ -546,11 +546,11 @@ function initializeDataDrivenToggle(): void {
           fields.classList.remove("d-none");
           setDataDrivenFieldsRequired(config.suffix, true);
 
-          // Update button text
-          toggle.textContent = "Hide Data Driven Analysis";
+          // Update button text (info icon is a sibling, so it won't be affected)
+          toggle.textContent = "Hide Advance";
 
           // For desktop: add expanded state
-          if (config.suffix === "Desktop" && config.containerId) {
+          if (config.suffix === "" && config.containerId) {
             const container = document.getElementById(config.containerId);
             if (container) {
               container.classList.add("expanded");
@@ -565,5 +565,17 @@ function initializeDataDrivenToggle(): void {
 function initCalculator(): void {
   initializeForms();
   initializeDataDrivenToggle();
+  initializePopovers();
+}
+
+function initializePopovers(): void {
+  // Initialize Bootstrap popovers
+  const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+  popoverTriggerList.forEach((popoverTriggerEl) => {
+    const bootstrap = (window as any).bootstrap;
+    if (bootstrap && bootstrap.Popover) {
+      new bootstrap.Popover(popoverTriggerEl);
+    }
+  });
 }
 

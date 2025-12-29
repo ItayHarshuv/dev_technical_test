@@ -1,0 +1,25 @@
+<% 
+    // Parameters:
+    // - toggleWrapperClass: CSS classes for the wrapper div
+    // - toggleButtonClass: CSS classes for the button
+    // - dataDrivenToggleId: ID for the toggle button
+    // - wrapperId: Optional ID for the wrapper div (for desktop)
+%>
+<div class="<%= toggleWrapperClass %>"<% if (typeof wrapperId !== 'undefined' && wrapperId) { %> id="<%= wrapperId %>"<% } %>>
+    <button type="button" class="<%= toggleButtonClass %>" id="<%= dataDrivenToggleId %>">
+        Advance
+    </button>
+    <span 
+        class="ms-2 text-muted" 
+        style="cursor: pointer; font-size: 0.9em;"
+        data-bs-toggle="popover" 
+        data-bs-trigger="hover focus"
+        data-bs-placement="top"
+        data-bs-content="Evaluate the occupancy rate based on the property parameters to obtain a more realistic net income value"
+        tabindex="0"
+        role="button"
+        aria-label="Information about Advance analysis">
+        <i class="bi bi-info-circle" style="font-size: 1.1em;"></i>
+    </span>
+</div>
+

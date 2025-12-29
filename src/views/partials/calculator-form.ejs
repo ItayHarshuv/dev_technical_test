@@ -98,11 +98,12 @@
                 </div>
             </div>
         </div>
-        <div class="<%= toggleWrapperClass %>" id="<%= isDesktop ? 'toggleWrapperDesktop' : '' %>">
-            <button type="button" class="<%= toggleButtonClass %>" id="<%= dataDrivenToggleId %>">
-                Data Driven Analysis
-            </button>
-        </div>
+        <%- include('_advance-button', {
+            toggleWrapperClass: toggleWrapperClass,
+            toggleButtonClass: toggleButtonClass,
+            dataDrivenToggleId: dataDrivenToggleId,
+            wrapperId: isDesktop ? 'toggleWrapperDesktop' : ''
+        }) %>
     <% } else { %>
         <div class="<%= fieldWrapperClass %>">
             <label for="<%= purchasePriceId %>" class="<%= labelClass %>"><%= purchasePriceLabel %></label>
@@ -126,11 +127,11 @@
     <% } %>
     
     <% if (!isDesktop) { %>
-        <div class="<%= toggleWrapperClass %>">
-            <button type="button" class="<%= toggleButtonClass %>" id="<%= dataDrivenToggleId %>">
-                Data Driven Analysis
-            </button>
-        </div>
+        <%- include('_advance-button', {
+            toggleWrapperClass: toggleWrapperClass,
+            toggleButtonClass: toggleButtonClass,
+            dataDrivenToggleId: dataDrivenToggleId
+        }) %>
         
         <div id="<%= dataDrivenFieldsId %>" class="<%= dataDrivenFieldsClass %>">
             <div class="mb-3">
