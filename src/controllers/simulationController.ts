@@ -9,7 +9,7 @@ interface SimulationRequestBody {
 }
 
 export const createSimulation = async (
-  req: Request,
+  req: Request<{}, SimulationRequestBody>,
   res: Response,
 ): Promise<void> => {
   try {
