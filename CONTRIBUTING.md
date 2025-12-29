@@ -31,7 +31,7 @@ This is the easiest way to get started as it handles all dependencies automatica
    ```
 
 2. **The application will be available at:**
-   - Main application: http://localhost:3000
+   - Web application: http://localhost:3000
    - MongoDB: localhost:27017
 
 3. **To stop the containers:**
@@ -40,7 +40,7 @@ This is the easiest way to get started as it handles all dependencies automatica
    docker-compose down
    ```
 
-4. **To rebuild containers after dependency changes:**
+4. **To rebuild containers after node dependency changes:**
    ```bash
    docker-compose up --build
    ```
@@ -80,7 +80,7 @@ If you prefer to run the project locally without Docker:
    npm run build:client
    ```
 
-   Or watch for changes:
+   Or run in watch mode for faster iterative development:
 
    ```bash
    npm run watch:client
