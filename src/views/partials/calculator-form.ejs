@@ -1,21 +1,23 @@
 <% 
     // Set defaults for context (desktop or modal)
     // context is passed from the include statement
-    const formContext = (typeof context !== 'undefined' && context) ? context : 'desktop';
+    const formContext = context ?? 'desktop';
     const isDesktop = formContext === 'desktop';
     const isModal = formContext === 'modal';
     
     // Set IDs based on context
+    const idPostfix = isDesktop ? '' : 'Modal';
+
     const formId = isDesktop ? 'calculatorForm' : 'calculatorFormModal';
-    const purchasePriceId = isDesktop ? 'purchasePrice' : 'purchasePriceModal';
-    const monthlyRentId = isDesktop ? 'monthlyRent' : 'monthlyRentModal';
-    const annualFeeId = isDesktop ? 'annualFee' : 'annualFeeModal';
-    const emailId = isDesktop ? 'email' : 'emailModal';
-    const dataDrivenToggleId = isDesktop ? 'dataDrivenToggleDesktop' : 'dataDrivenToggleModal';
-    const dataDrivenFieldsId = isDesktop ? 'dataDrivenFieldsDesktop' : 'dataDrivenFieldsModal';
-    const surfaceId = isDesktop ? 'surfaceDesktop' : 'surfaceModal';
-    const bedroomsId = isDesktop ? 'bedroomsDesktop' : 'bedroomsModal';
-    const locationScoreId = isDesktop ? 'locationScoreDesktop' : 'locationScoreModal';
+    const purchasePriceId = `purchasePrice${idPostfix}`;
+    const monthlyRentId = `monthlyRent${idPostfix}`;
+    const annualFeeId = `annualFee${idPostfix}`;
+    const emailId = `email${idPostfix}`;
+    const dataDrivenToggleId = `dataDrivenToggle${idPostfix}`;
+    const dataDrivenFieldsId = `dataDrivenFields${idPostfix}`;
+    const surfaceId = `surface${idPostfix}`;
+    const bedroomsId = `bedrooms${idPostfix}`;
+    const locationScoreId = `locationScore${idPostfix}`;
     
     // Set classes based on context
     const formClasses = isDesktop ? 'd-none d-lg-flex flex-column align-items-center gap-0 mt-4 w-100 calculator-form-desktop' : '';
